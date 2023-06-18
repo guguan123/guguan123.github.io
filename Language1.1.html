@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="max-age=4">
+    <title>Language redirect</title>
+    <script type="text/javascript">
+      // 检查是否存在cookie或localStorage中的语言选择
+      function checkLanguage() {
+        // 获取cookie或localStorage中的语言选择，如果不存在，就获取浏览器的语言设置
+        const language = document.cookie || localStorage.getItem("selectedLanguage") || navigator.language || navigator.userLanguage;
+        // 根据语言选择重定向到相应的html文件
+        switch (language) {
+            case "zh":
+            // 只有当当前的url不是index_zh.html时，才进行重定向
+            if (window.location.href !== "index_zh.html") {
+                window.location.href = "index_zh.html";
+            }
+            break;
+            default:
+            // 只有当当前的url不是index_en.html时，才进行重定向
+            if (window.location.href !== "index_en.html") {
+                window.location.href = "index_en.html";
+            }
+        }
+      }
+
+      // 设置cookie或localStorage中的语言选择
+      function setLanguage(language) {
+        // 设置cookie或localStorage中的语言选择
+        document.cookie = language;
+        localStorage.setItem("selectedLanguage", language);
+        // 重新加载页面
+        location.reload();
+      }
+
+      // 在页面加载时调用检查语言选择的函数
+      window.addEventListener("load", checkLanguage);
+    </script>
+  </head>
+  <body>
+    <!-- 添加一些按钮或链接，用来让用户选择语言 -->
+    <button>English</button>
+    <button>中文</button>
+    <script type="text/javascript">
+      // 为每个按钮添加点击事件，调用设置语言选择的函数
+      const buttons = document.querySelectorAll("button");
+      buttons.forEach(button => {
+        button.addEventListener("click", () => {
+          setLanguage(button.textContent);
+        });
+      });
+    </script>
+  </body>
+</html>

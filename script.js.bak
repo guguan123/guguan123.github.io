@@ -1,0 +1,40 @@
+// 检查是否存在cookie或localStorage中的语言选择
+function checkLanguage() {
+
+    // 获取cookie或localStorage中的语言选择，如果不存在，就获取浏览器的语言设置
+    const language = document.cookie || localStorage.getItem("selectedLanguage") || navigator.language || navigator.userLanguage;
+
+    // 根据语言选择重定向到相应的html文件
+    const targetUrl = language === "zh-cn" ? "index_zh.html" : "index.html";
+
+    // 获取当前的url中的文件名部分
+    const currentUrl = window.location.pathname.split("/").pop();
+
+    // 只有当当前的url不是目标url时，才进行重定向
+    if (currentUrl !== targetUrl) {
+        window.location.href = targetUrl;
+    }
+}
+
+// 设置cookie或localStorage中的语言选择
+function setLanguage(language) {
+    
+    // 设置cookie和localStorage中的语言选择
+    document.cookie = language;
+    localStorage.setItem("selectedLanguage", language);
+
+    // 重新加载页面
+    location.reload();
+}
+
+// 在页面加载时调用检查语言选择的函数
+window.addEventListener("load", checkLanguage);
+
+// 当文档加载完成时，执行回调函数
+document.addEventListener("DOMContentLoaded", () => {
+    // 为按钮添加点击事件，调用设置语言选择的函数
+    var button = document.querySelector("button");
+    button.addEventListener("click", () => {
+        setLanguage(button.textContent);
+    });
+});
