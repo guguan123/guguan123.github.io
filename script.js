@@ -139,6 +139,8 @@ function CompareURL() {
     console.log("准备开始检测网络连接，当前URL：" + PossibleURL);
     var regex = /https?:\/\//; // 定义一个正则表达式，匹配http://或者https://
     PossibleURL = PossibleURL.replace(regex, ""); // 把匹配到的子字符串替换为空字符串
+    var index = PossibleURL.lastIndexOf("/");
+    var url = PossibleURL.substr(0, index);
     console.log(PossibleURL); // 打印变量PossibleURL的值
     console.log("变量PossibleURL的类型为：" + typeof PossibleURL); // 打印变量PossibleURL的类型
     var result = checkUrl(PossibleURL); // 调用函数，得到返回值
