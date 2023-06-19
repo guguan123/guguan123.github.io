@@ -139,7 +139,7 @@ function CompareURL() {
     console.log("准备开始检测网络连接，当前URL：" + PossibleURL);
     var regex = /https?:\/\//; // 定义一个正则表达式，匹配http://或者https://
     PossibleURL = PossibleURL.replace(regex, ""); // 把匹配到的子字符串替换为空字符串
-    var PossibleURL = PossibleURL.replace(/\/[^\/]*$/, "");
+    var PossibleURL = PossibleURL.replace(/\/[^\/]*$/, ""); //去掉“/”后面的内容
     console.log(PossibleURL); // 打印变量PossibleURL的值
     console.log("变量PossibleURL的类型为：" + typeof PossibleURL); // 打印变量PossibleURL的类型
     var result = checkUrl(PossibleURL); // 调用函数，得到返回值
@@ -198,6 +198,7 @@ function SwitchPageType(URLType) {
         elem2.style.display = "none"; // 隐藏id为0的元素
         elem3.style.display = "none";
         elem4.style.display = "none";
+        ChangeURL()
     } else if (URLType == 2) {
         elem1.style.display = "none";
         elem2.style.display = "block";
@@ -216,17 +217,7 @@ function SwitchPageType(URLType) {
     }
 }
 
-// 在页面加载时调用检查语言选择的函数
-window.addEventListener("load", RedirectPage);
-
-// 当文档加载完成时，执行回调函数
-document.addEventListener("DOMContentLoaded", () => {
-    // 为按钮添加点击事件，调用设置语言选择的函数
-    var button = document.querySelector("button");
-    button.addEventListener("click", () => {
-        setLanguage(button.textContent);
-    });
-
+function ChangeURL() {
     //获取当前网页的地址
     var url = window.location.href;
     //定义一个正则表达式，匹配网页地址的最后一部分
@@ -244,6 +235,18 @@ document.addEventListener("DOMContentLoaded", () => {
         //修改href属性，拼接端口号
         link.href = url + ":" + ports[i];
     }
+}
+
+// 在页面加载时调用检查语言选择的函数
+window.addEventListener("load", RedirectPage);
+
+// 当文档加载完成时，执行回调函数
+document.addEventListener("DOMContentLoaded", () => {
+    // 为按钮添加点击事件，调用设置语言选择的函数
+    var button = document.querySelector("button");
+    button.addEventListener("click", () => {
+        setLanguage(button.textContent);
+    });
 
     var logo = document.getElementById("logo");
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
