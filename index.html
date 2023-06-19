@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <!--
     Modified from the Debian original for Ubuntu
-    Last updated: 2022-03-22
+    Last updated: 2022-06-19
     See: https://launchpad.net/bugs/1966004
   -->
   <head>
@@ -14,6 +14,8 @@
       <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="script.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.js"></script>
+    <!--从Microsoft CDN获取jQuery-->
     <link rel="stylesheet" href="style.css"/>
   </head>
   <body>
@@ -23,7 +25,7 @@
     <div class="main_page">
       <div class="page_header floating_element">
         <button class="button" type="button" title="切换为中文页面">zh-cn</button>
-        <img src="/ubuntu-logo.png" alt="Ubuntu Logo"
+        <img src="./ubuntu-logo.png" alt="Ubuntu Logo"
              style="width:184px;height:146px;" class="floating_element" id="logo" />
         <div>
           <span style="margin-top: 1.5em;" class="floating_element">
@@ -181,25 +183,76 @@
             Others
         </div>
         <div class="content_section_text">
-          <p>
-            <a href="./URL_redirect.html" rel="nofollow">URL redirect</a>
-            <a href="./file_list.html" rel="nofollow">File List</a>
-            <a href="http://cn-yw-plc-5.openfrp.top:34444" rel="nofollow">MCSManager Panel</a>
-            <a href="./qbt/" rel="nofollow">qBittorrent Web UI</a>
-            <a href="http://cn-yw-plc-3.openfrp.top:12000/" rel="nofollow">Netdisk</a>
-            <a href="http://frp-fly.top:58371/" rel="nofollow">ASUS Download Master</a>
-          </p>
+          <div id="1">
+            <p>
+              <a href="./URL_redirect.html" rel="nofollow">URL redirect</a>
+              <a href="./file_list.html" rel="nofollow">File List</a>
+              <a id="MCSM" href="host:23333" rel="nofollow">MCSManager Panel</a>
+              <a id="qBT" href="host:8080" rel="nofollow">qBittorrent Web UI</a>
+              <a id="Netdisk" href="host:5244" rel="nofollow">Netdisk</a>
+              <a id="router" href="host:8084" rel="nofollow">Router Web</a>
+              <a id="ASUSDM" href="host:8085" rel="nofollow">ASUS Download Master</a>
+              <a href="http://guguan.000.pe/" rel="nofollow">Blog</a>
+            </p>
+            <p>
+              <a href="http://guguan.freehk.svipss.top/" rel="nofollow">Websites proxy by fgnwct.com</a>
+              <a href="http://guguan123.github.io/guguan/" rel="nofollow">Pages hosted by Github</a>
+              <a href="http://guguan.000.pe/" rel="nofollow">Pages hosted by InfinityFree</a>
+              <a href="http://www.i-i.me/507.html" rel="nofollow">Third party HomePage</a>
+            </p>
+          </div>
+          <div id="2">
+            <p>
+              <a href="./URL_redirect.html" rel="nofollow">URL redirect</a>
+              <a href="./file_list.html" rel="nofollow">File List</a>
+              <a href="http://cn-yw-plc-5.openfrp.top:34444" rel="nofollow">MCSManager Panel</a>
+              <a href="./qbt/" rel="nofollow">qBittorrent Web UI</a>
+              <a href="http://cn-yw-plc-3.openfrp.top:12000/" rel="nofollow">Netdisk</a>
+              <a href="http://frp-fly.top:58371/" rel="nofollow">ASUS Download Master</a>
+              <a href="http://guguan.000.pe/" rel="nofollow">Blog</a>
+            </p>
+            <p>
+              <a href="http://guguan123.github.io/guguan/" rel="nofollow">Pages hosted by Github</a>
+              <a href="http://guguan.000.pe/index2.html" rel="nofollow">Pages hosted by InfinityFree</a>
+              <a href="http://www.i-i.me/507.html" rel="nofollow">Third party HomePage</a>
+            </p>
+          </div>
+          <div id="3">
+            <p>
+              <a href="./URL_redirect.html" rel="nofollow">URL redirect</a>
+              <a href="./file_list.html" rel="nofollow">File List</a>
+              <a href="http://cn-yw-plc-5.openfrp.top:34444" rel="nofollow">MCSManager Panel</a>
+              <a href="https://guguan.freehk.svipss.top/qbt/" rel="nofollow">qBittorrent Web UI</a>
+              <a href="http://cn-yw-plc-3.openfrp.top:12000/" rel="nofollow">Netdisk</a>
+              <a href="http://frp-fly.top:58371/" rel="nofollow">ASUS Download Master</a>
+              <a href="http://guguan.000.pe/" rel="nofollow">Blog</a>
+            </p>
+            <p>
+              <a href="http://guguan.freehk.svipss.top/" rel="nofollow">Websites proxy by fgnwct.com</a>
+              <a href="http://guguan123.github.io/guguan/" rel="nofollow">Pages hosted by Github</a>
+              <a href="http://www.i-i.me/507.html" rel="nofollow">Third party HomePage</a>
+            </p>
+          </div>
+          <div id="4">
+            <p>
+              <a href="./URL_redirect.html" rel="nofollow">URL redirect</a>
+              <a href="./file_list.html" rel="nofollow">File List</a>
+              <a href="http://cn-yw-plc-5.openfrp.top:34444" rel="nofollow">MCSManager Panel</a>
+              <a href="https://guguan.freehk.svipss.top/qbt/" rel="nofollow">qBittorrent Web UI</a>
+              <a href="http://cn-yw-plc-3.openfrp.top:12000/" rel="nofollow">Netdisk</a>
+              <a href="http://frp-fly.top:58371/" rel="nofollow">ASUS Download Master</a>
+              <a href="http://guguan.000.pe/" rel="nofollow">Blog</a>
+            </p>
+            <p>
+              <a href="http://guguan.freehk.svipss.top/" rel="nofollow">Websites proxy by fgnwct.com</a>
+              <a href="http://guguan.000.pe/index2.html" rel="nofollow">Pages hosted by InfinityFree</a>
+              <a href="http://www.i-i.me/507.html" rel="nofollow">Third party HomePage</a>
+            </p>
+          </div>
         </div>
       </div>
     </div>
     <div class="validator">
     </div>
   </body>
-  <script type="text/javascript">
-    var logo = document.getElementById("logo");
-
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      logo.src = "/ubuntu-logo_dark.png";
-    }
-  </script>
 </html>
