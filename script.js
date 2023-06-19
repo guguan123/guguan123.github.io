@@ -248,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     var logo = document.getElementById("logo");
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        logo.src = "/ubuntu-logo_dark.png";
+        logo.src = "./ubuntu-logo_dark.png";
     }
 
     var URLType = CompareURL();
