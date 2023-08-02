@@ -12,19 +12,19 @@
     <![endif]-->
 
     <script>
-        var language; // 声明全局变量
+        var language;
 
-        function addEventListener() {
+        function addEventListener() { // 检查语言设置
             var cname=getCookie("lang");
             if (cname!="") {
-                language = cname.toLowerCase(); // 赋值给全局变量
+                language = cname.toLowerCase();
             }
             else 
             {
                 if (typeof(Storage)!=="undefined") {
                     var lname = localStorage.getItem("lang");
-                    if (lname!=null) { // 修改此处的判断条件
-                        language = lname.toLowerCase(); // 赋值给全局变量
+                    if (lname!=null) {
+                        language = lname.toLowerCase();
                     } else {
                         language = (navigator.language || navigator.userLanguage).toLowerCase();
                     }
@@ -49,6 +49,7 @@
 
     <style type="text/css">
         div {
+            /*将页面元素居中*/
             display: flex;
             justify-content: center;
             align-items: center;
@@ -72,10 +73,12 @@
 
 <body onload="addEventListener()">
     <noscript id="noscript">
+        <!--向不支持JS脚本的浏览器报错-->
         <h1 id="warning">JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
     </noscript>
     <div>
-        <form onsubmit="return false;" onkeydown="if(event.keyCode==13){addPrefix();}">
+        <!--主要的页面元素-->
+        <form onsubmit="addPrefix(); return false;">
             <label id="Label" for="myURL">URL:</label>
             <input type="text" id="myURL" name="url">
             <button type="button" onclick="addPrefix()" id="Button" title="Redirects to this URL">Go</button>
@@ -84,12 +87,12 @@
 
     <script>
         function Change_Text() {
-            if (language!="zh-cn") { // 加上引号或单引号
+            if (language!="zh-cn") { //根据language变量修改页面内容的语言
                 document.documentElement.setAttribute("lang", "en");
             } else {
-                document.getElementById('Title').innerHTML = '网址重定向'; // 修改此处的文本
-                document.getElementById('Label').innerHTML = '网址：'; // 修改此处的文本
-                document.getElementById('Button').innerHTML = '前往'; // 修改此处的文本
+                document.getElementById('Title').innerHTML = '网址重定向';
+                document.getElementById('Label').innerHTML = '网址：';
+                document.getElementById('Button').innerHTML = '前往';
                 document.getElementById("Button").setAttribute("title", "重定向至此网址");
                 document.documentElement.setAttribute("lang", "zh-cn");
             }
@@ -97,10 +100,19 @@
 
         function addPrefix() {
             var url = document.getElementById("myURL").value;
-            if (!url.match(/^https?:\/\//i)) {
-                url = 'http://' + url;
+            if (!url) {
+                if (language!="zh-cn") {
+                    console.error("The URL cannot be null!");
+                } else {
+                    console.error("网址不能为空！");
+                }
+            } else {
+                if (!url.match(/^https?:\/\//i)) { // 识别链接是否带有“http://”或者“https://”
+                    url = 'http://' + url; // 如果没有将在链接前面添加“http://”
+                }
+                window.location.href = url;
             }
-            window.location.href = url;
+            
         }
     </script>
 </body>
