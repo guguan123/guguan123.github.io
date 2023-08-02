@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title id="Title">URL redirect</title>
+    <link rel="icon" href="./images/URL_redirect.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./images/URL_redirect.svg" type="image/svg+xml">
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <script>
+        var language; // 声明全局变量
+
+        function addEventListener() {
+            var cname=getCookie("lang");
+            if (cname!="") {
+                language = cname.toLowerCase(); // 赋值给全局变量
+            }
+            else 
+            {
+                if (typeof(Storage)!=="undefined") {
+                    var lname = localStorage.getItem("lang");
+                    if (lname!=null) { // 修改此处的判断条件
+                        language = lname.toLowerCase(); // 赋值给全局变量
+                    } else {
+                        language = (navigator.language || navigator.userLanguage).toLowerCase();
+                    }
+                } else {
+                    language = (navigator.language || navigator.userLanguage).toLowerCase();
+                }
+            }
+            Change_Text();
+        }
+
+        function getCookie(lang) {
+            var name = lang + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) 
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+    </script>
+
+    <style type="text/css">
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #242424;
+            }
+            input {
+                color: Black;
+            }
+            label {
+                /*color: lightgray;*/
+                color: #f5f5f5;
+            }
+        }
+    </style>
+
+</head>
+
+<body onload="addEventListener()">
+    <noscript id="noscript">
+        <h1 id="warning">JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
+    </noscript>
+    <div>
+        <form onsubmit="return false;" onkeydown="if(event.keyCode==13){addPrefix();}">
+            <label id="Label" for="myURL">URL:</label>
+            <input type="text" id="myURL" name="url">
+            <button type="button" onclick="addPrefix()" id="Button" title="Redirects to this URL">Go</button>
+        </form>
+    </div>
+
+    <script>
+        function Change_Text() {
+            if (language!="zh-cn") { // 加上引号或单引号
+                document.documentElement.setAttribute("lang", "en");
+            } else {
+                document.getElementById('Title').innerHTML = '网址重定向'; // 修改此处的文本
+                document.getElementById('Label').innerHTML = '网址：'; // 修改此处的文本
+                document.getElementById('Button').innerHTML = '前往'; // 修改此处的文本
+                document.getElementById("Button").setAttribute("title", "重定向至此网址");
+                document.documentElement.setAttribute("lang", "zh-cn");
+            }
+        }
+
+        function addPrefix() {
+            var url = document.getElementById("myURL").value;
+            if (!url.match(/^https?:\/\//i)) {
+                url = 'http://' + url;
+            }
+            window.location.href = url;
+        }
+    </script>
+</body>
+</html>
