@@ -168,9 +168,9 @@ function CompareURL() {
     var PossibleURL = getAddress(url); // 变量PossibleURL
     var lang = document.documentElement.lang.toLowerCase();
     if (lang === 'zh-cn') {
-        console.log('准备开始检测网络连接');
+        console.log('准备开始检测网络连接方式');
     } else {
-        console.log('Ready to start detecting network connections');
+        console.log('Ready to start detecting network connectivity');
     }
     var regex = /https?:\/\//; // 定义一个正则表达式，匹配http://或者https://
     PossibleURL = PossibleURL.replace(regex, ""); // 把匹配到的子字符串替换为空字符串
@@ -242,11 +242,11 @@ function testPorts(ports) { // 定义函数，参数为端口数组
 
 function SwitchPageType(URLType) {
     // 获取id为0和1的元素
-    var elem0 = document.getElementById("0");
-    var elem1 = document.getElementById("1");
-    var elem2 = document.getElementById("2");
-    var elem3 = document.getElementById("3");
-    var elem4 = document.getElementById("4");
+    var elem0 = document.getElementById("null");
+    var elem1 = document.getElementById("a");
+    var elem2 = document.getElementById("b");
+    var elem3 = document.getElementById("c");
+    var elem4 = document.getElementById("d");
 
     // 根据a的值设置元素的显示或隐藏
     if (URLType == 0){
@@ -255,14 +255,14 @@ function SwitchPageType(URLType) {
         elem3.style.display = "none";
         elem4.style.display = "none";
     } else if (URLType == 1) {
-        elem1.style.display = "block"; // 显示id为1的元素
-        elem2.style.display = "none"; // 隐藏id为2的元素
+        elem1.style.display = "block"; // 显示id为a的元素
+        elem2.style.display = "none"; // 隐藏id为b的元素
         elem3.style.display = "none";
         elem4.style.display = "none";
         ChangeURL() // 自动适配链接地址
     } else if (URLType == 2) {
-        elem1.style.display = "none"; // 隐藏id为1的元素
-        elem2.style.display = "block"; // 显示id为2的元素
+        elem1.style.display = "none"; // 隐藏id为a的元素
+        elem2.style.display = "block"; // 显示id为b的元素
         elem3.style.display = "none";
         elem4.style.display = "none";
     } else if (URLType == 3) {
@@ -309,6 +309,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setLanguage(button.textContent);
     });
 
+    //如果处于黑暗模式，就把Ubuntu Logo换成对应的图片
     var logo = document.getElementById("logo");
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         logo.src = "./images/ubuntu-logo_dark.png";
@@ -317,9 +318,9 @@ document.addEventListener("DOMContentLoaded", () => {
     var URLType = CompareURL();
     var lang = document.documentElement.lang.toLowerCase();
     if (lang === 'zh-cn') {
-        console.log("访问方式检测结果为：" + URLType);
+        console.log("访问方式检测返回值为：" + URLType);
     } else {
-        console.log("The way to access the website was detected as:" + URLType);
+        console.log("The return value of the access method detection is: " + URLType);
     }
     SwitchPageType(URLType) //隐藏不需要的元素
 
