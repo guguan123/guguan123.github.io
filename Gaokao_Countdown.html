@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>时间不多了！</title>
+    <script>
+        // 获取当前时间
+        function getCurrentTime() {
+            var currentTime = new Date();
+            return currentTime.getTime(); // 返回时间戳（单位：毫秒）
+        }
+
+        // 计算倒计时时间差
+        function calculateCountdown() {
+            var examDate = new Date("2024-06-07 09:00"); // 高考日期
+            var examTime = examDate.getTime(); // 高考日期时间戳
+
+            var currentTime = getCurrentTime();
+            var timeDifference = Math.floor((examTime - currentTime) / 1000); // 计算时间差（单位：秒）
+
+            var days = Math.floor(timeDifference / (24 * 60 * 60));
+            var hours = Math.floor((timeDifference % (24 * 60 * 60)) / (60 * 60));
+            var minutes = Math.floor((timeDifference % (60 * 60)) / 60);
+            var seconds = Math.floor(timeDifference % 60);
+
+            // 更新倒计时显示
+            document.getElementById("countdown").innerHTML = days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒";
+        }
+
+        // 自动更新倒计时
+        setInterval(calculateCountdown, 1000);
+
+        window.addEventListener('resize', function() {
+            ChangePageLayout();
+        });
+
+        function ChangePageLayout() {
+            var container = document.querySelector('.container');
+            var screenWidth = window.innerWidth || document.documentElement.clientWidth;
+            var screenHeight = window.innerHeight || document.documentElement.clientHeight;
+            var isMobileLayout = screenWidth / screenHeight < 3 / 4;
+
+            if (isMobileLayout) {
+                console.log("1");
+                container.style.flexDirection = 'column';
+
+                // 获取页面分辨率的高度并除以2
+                var screenHeight = window.innerHeight || document.documentElement.clientHeight;
+                var halfHeight = screenHeight / 2;
+
+                // 设置<div class="left">的高度
+                var leftDiv = document.querySelector('.left');
+                leftDiv.style.height = halfHeight + 'px';
+            } else {
+                console.log("2");
+                container.style.flexDirection = 'row';
+                container.style.height = '100%';
+
+                // 获取页面分辨率的高度
+                var screenHeight = window.innerHeight || document.documentElement.clientHeight;
+                // 设置<div class="left">的高度
+                var leftDiv = document.querySelector('.left');
+                leftDiv.style.height = screenHeight + 'px';
+            }
+            
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+        ChangePageLayout();
+        });
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .left {
+            flex: 1;
+            background-image: url("https://226000.xyz/assets/img/bg.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        .right {
+            flex: 1;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .right .Main_text {
+            color: purple;
+            margin-bottom: 0px; /* 间距大小 */
+            margin-top: 0px; /* 间距大小 */
+            font-size: 48px; /* 字体大小 */
+        }
+        .right .pageContent{
+            display: block;
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            font-size: 13px; /* 字体大小 */
+        }
+
+    </style>
+    <link rel="icon" type="image/png" href="https://b2.226000.xyz/pic/img/wifi.png">
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <!-- 图片内容 -->
+        </div>
+        <div class="right">
+            <h1 class="Main_text">
+                距离高考还有
+                <div id="countdown"></div>
+            </h1>
+            <p class="pageContent"></p>
+            <p style="display: block;">吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。——《劝学》</p>
+            <div class="footer">
+                联系方式：<i>guguan123@outlook.com</i>
+                <br>
+                © 2023 Not right reserved.&nbsp;自豪地不由<a href="https://netlify.com" target="_blank">Netlify</a>强力驱动.&nbsp;<a href="http://wapmz.com/in/49"><img src="http://wapmz.com/cn/small/49" alt="wapmz.com"></a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
