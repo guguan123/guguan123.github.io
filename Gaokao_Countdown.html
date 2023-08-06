@@ -101,11 +101,20 @@
         var examTime = examDate.getTime(); // 获取高考日期时间戳
         let AccessTimeReturnVar = 0; // 函数返回变量
         let threshold = 30 * 1000; // 定义一阈值为30秒
-        let url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai"; // 设置请求的URL，这里使用北京时间
+        
         var HiddenElements = 0
         var TimeVar = 0
         var onlineTime;
-        var currentTime
+        var currentTime;
+        if (window.location.protocol === "https:") {
+            // 当前页面使用 HTTPS 协议
+            console.log("当前页面使用 HTTPS 协议");
+            var url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai";
+        } else {
+            // 当前页面不使用 HTTPS 协议
+            console.log("当前页面不使用 HTTPS 协议");
+            var url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai"; // 设置请求的URL，这里使用北京时间
+        }
         
         function getCurrentTime() {// 获取当前时间
             if (TimeVar >= 30) { // 每隔30秒对较一遍在线时间
