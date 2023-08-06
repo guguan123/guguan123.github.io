@@ -16,14 +16,6 @@
             
         }
 
-        .pageContent{
-            display: block;
-            margin-block-start: 1em;
-            margin-block-end: 1em;
-            margin-inline-start: 0px;
-            margin-inline-end: 0px;
-        }
-
         .gray-half,
         .white-half {
             height: 100%;
@@ -52,6 +44,13 @@
 
         .Main_text{
             color: purple;
+        }
+
+        .pageContent{
+            margin-block-start: 1em;
+            margin-block-end: 1em;
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
         }
 
         @media (min-width: 768px) { /* 如果屏幕宽度大于等于768px */
@@ -92,7 +91,102 @@
                 color: #E066FF;
             }
         }
-        
+
+        /*@media (min-width: 768px) and (min-height: 280px) {
+            /* 当窗口分辨率的宽度大于768且长度大于280时（正常的电脑屏幕） */
+            /*.pageContent{
+                display: block;
+            }
+            
+            .Main_text{
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+            }
+        }*/
+
+        @media (min-width: 768px) and (max-height: 279px) {
+            /* 当窗口分辨率的宽度大于768且长度小于280时（较小的电脑屏幕） */
+            .pageContent {
+                display: none;
+            }
+
+            .Main_text{
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+        }
+
+        @media (max-width: 767px) and (min-width: 628px) and (max-height: 499px) {
+            /* 当窗口分辨率宽度小于768且大于628，并且长度小于500时（较小的平板屏幕） */
+            /* 此时已经更改为移动设备样式，且 class="maxim" 可以保持一行 */
+            .pageContent {
+                display: none;
+            }
+
+            .Main_text{
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+        }
+
+        @media (max-width: 627px) and (min-width: 410px) and (max-height: 529px) {
+            /* 宽度小于628且大于410，并且长度小于530时（更小的平板屏幕） */
+            /* 此时已经更改为移动设备样式，且 class="maxim" 可以保持两行 */
+            .pageContent {
+                display: none;
+            }
+
+            .Main_text{
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+
+            .h1 {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 409px) and (max-height: 719px) {
+            /* 分辨率宽度小于410且长度小于720时 */
+
+            #countdown {
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+
+            .pageContent {
+                display: none;
+            }
+
+            .Main_text{
+                margin-block-start: 0;
+                margin-block-end: 0;
+            }
+
+            .white-half .footer {
+                position: absolute;
+                bottom: 0;
+                font-size: 4px; /* 字体大小 */
+            }
+        }
+
+        @media (max-width: 369px) and (max-height: 439px) {
+            .maxim {
+                display: none;
+            }
+        }
+
+        @media (max-width: 349px) and (max-height: 559px) {
+            .maxim {
+                display: none;
+            }
+        }
+
+        @media (max-width: 767px) and (max-height: 389px) {
+            .maxim {
+                display: none;
+            }
+        }
     </style>
 
     <script>
@@ -121,7 +215,7 @@
                 TimeVar = 0;
                 updateData();
             }
-            console.log("当前使用的时间为：" + AccessTimeReturnVar);
+            console.log("在线时间较对返回值为：" + AccessTimeReturnVar);
 
             if (AccessTimeReturnVar == 2) { // 如果需要在线时间进行计时
                 onlineTime = onlineTime + 1000
@@ -148,6 +242,10 @@
             console.log("倒计时的时间差：" + timeDifference);
 
             if (timeDifference > 0) {
+                if (HiddenElements !== 1) {
+                    // 如果计时器的元素被错误隐藏了就解除隐藏
+                    document.getElementById("countdown").style.display = "block";
+                }
                 // 更新倒计时显示
                 document.getElementById("countdown").innerHTML = days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒";
             } else {
