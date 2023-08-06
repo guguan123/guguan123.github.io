@@ -22,6 +22,7 @@
         }
 
         .gray-half {
+            /* 设置背景图片 */
             background-image: url("https://226000.xyz/assets/img/bg.jpg");
             background-size: cover;
             background-repeat: no-repeat;
@@ -75,6 +76,7 @@
         }
 
         @media (prefers-color-scheme: dark) {
+            /* 适配黑暗模式 */
             body {
                 background-color: #242424;
             }
@@ -195,19 +197,19 @@
         var examTime = examDate.getTime(); // 获取高考日期时间戳
         let AccessTimeReturnVar = 0; // 函数返回变量
         let threshold = 30 * 1000; // 定义一阈值为30秒
-        
         var HiddenElements = 0
         var TimeVar = 0
         var onlineTime;
         var currentTime;
+        // 设置在线时间的URL
         if (window.location.protocol === "https:") {
-            // 当前页面使用 HTTPS 协议
+            // 如果当前页面使用 HTTPS 协议
             console.log("当前页面使用 HTTPS 协议");
-            var url = "https://worldtimeapi.org/api/timezone/Asia/Shanghai";
+            var url = "https://worldtimeapi.org/api/timezone/Asia/Shanghai"; // 将请求的URL设为https协议
         } else {
-            // 当前页面不使用 HTTPS 协议
+            // 如果当前页面不使用 HTTPS 协议
             console.log("当前页面不使用 HTTPS 协议");
-            var url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai"; // 设置请求的URL，这里使用北京时间
+            var url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai";
         }
         
         function getCurrentTime() {// 获取当前时间
@@ -321,6 +323,7 @@
             });
         };
 
+        // 打开网页时先和在线时间对较一次
         updateData();
 
         // 自动更新倒计时
