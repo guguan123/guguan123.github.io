@@ -101,7 +101,7 @@ function getAddress(url) {
     url = url.replace(regex, "");
     var lang = document.documentElement.lang.toLowerCase();
     if (lang === 'zh-cn') {
-        console.log('当前URL为：' + url);
+        console.log('开始获取URL，当前URL为：' + url);
     } else {
         console.log('Current URL:' + url);
     }
@@ -112,8 +112,8 @@ function CompareURL() {
         var urls = ["server", "192.168.0.2", "192.168.194.2", "guguan.freehk.svipss.top", "guguan.000.pe", "guguan123.github.io"]; // URL数组
         var URLnum = urls.indexOf(PossibleURL)
         if (URLnum != -1) { // 如果变量PossibleURL在URL数组中
+            var lang = document.documentElement.lang.toLowerCase();
             if (URLnum == 0 || URLnum == 1 || URLnum == 2) { //用户通过局域网或者ZeroTier访问
-                var lang = document.documentElement.lang.toLowerCase();
                 if (lang === 'zh-cn') {
                     console.log('检测到通过局域网或者ZeroTier访问');
                 } else {
@@ -122,7 +122,6 @@ function CompareURL() {
                 return 1;
             } else {
             if (URLnum == 3) {   //用户通过内网穿透访问
-                var lang = document.documentElement.lang.toLowerCase();
                 if (lang === 'zh-cn') {
                     console.log('检测到通过内网穿透访问');
                 } else {
@@ -131,7 +130,6 @@ function CompareURL() {
                 return 2;
             } else {
                 if (URLnum == 4) {   //用户访问的是云服务器
-                    var lang = document.documentElement.lang.toLowerCase();
                     if (lang === 'zh-cn') {
                         console.log('检测到访问的是云服务器');
                     } else {
@@ -140,7 +138,6 @@ function CompareURL() {
                     return 3;
                 } else {
                     if (URLnum == 5) {   //用户访问的是GitHub Pages
-                        var lang = document.documentElement.lang.toLowerCase();
                         if (lang === 'zh-cn') {
                             console.log('检测到访问的是GitHub Pages');
                         } else {
@@ -152,20 +149,11 @@ function CompareURL() {
             }
             }
         } else { // 如果变量PossibleURL不在URL数组中
-            var lang = document.documentElement.lang.toLowerCase();
-            if (lang === 'zh-cn') {
-                console.log('URL检测失败，开始端口测试');
-            } else {
-                console.log('URL detection failed, start port test');
-            }
-            var TestResults = testPorts([80, 8080, 8000, 23333, 24444, 5244]); // 调用外部函数，传入端口数组
-            return TestResults;
+            return 4;
             // 通过http测试是否可以连接服务器其它端口
         }
-        
     }
-    var url
-    var PossibleURL = getAddress(url); // 变量PossibleURL
+    var PossibleURL = url; // 变量PossibleURL
     var lang = document.documentElement.lang.toLowerCase();
     if (lang === 'zh-cn') {
         console.log('准备开始检测网络连接方式');
@@ -177,67 +165,6 @@ function CompareURL() {
     var PossibleURL = PossibleURL.replace(/\/[^\/]*$/, ""); //去掉“/”后面的内容
     var result = checkUrl(PossibleURL); // 调用函数，得到返回值
     return result;
-}
-
-function testPorts(ports) { // 定义函数，参数为端口数组
-    var success = 0; // 成功次数
-    var i = 0; // 循环索引
-    function testPort() {
-        if (i < ports.length && success < 2) { // 如果还有端口未测试且成功次数小于2
-            var lang = document.documentElement.lang.toLowerCase();
-            if (lang === 'zh-cn') {
-                console.log("第" + i + "次检测，已检测成功" + success + "次，开始检测端口" + ports[i]);
-            } else {
-                if (i == 1) {
-                    var numeric_suffix = 'st'
-                } else {
-                    if (i == 2) {
-                        var numeric_suffix = 'nd'
-                    } else {
-                        if (i == 3) {
-                            var numeric_suffix = 'rd'
-                        } else {
-                            var numeric_suffix = 'th'
-                        }
-                    }
-                }
-                console.log(i + numeric_suffix + ' test, ' + success + 'successful tests have been performed, start testing port' + ports[i]);
-            }
-            $.ajax({
-                type: "HEAD",
-                url: getAddress(url) + ":" + ports[i], // 拼接URL和端口并插入冒号
-                success: function() {
-                    success++; // 成功次数加一
-                    i++; // 索引加一
-                    testPort(); // 递归调用
-                },
-                error: function() {
-                    i++; // 索引加一
-                    testPort(); // 递归调用
-                }
-            });
-        } else { // 如果已经测试完所有端口或者成功次数达到2
-            if (success >= 2) { // 如果成功次数大于等于2
-                var lang = document.documentElement.lang.toLowerCase();
-                if (lang === 'zh-cn') {
-                    console.log('端口测试通过，将认为通过局域网或者ZeroTier访问');
-                } else {
-                    console.log('The port test passes and will be considered accessible via LAN or ZeroTier');
-                }
-                return 1;
-            } else { // 如果成功次数小于2
-                var lang = document.documentElement.lang.toLowerCase();
-                if (lang === 'zh-cn') {
-                    console.log('连接检测失败');
-                } else {
-                    console.log('Connection Detection Failed');
-                }
-                return 0;
-            }
-        }
-    }
-    var testPortNum = testPort(); // 调用内部函数
-    return testPortNum;
 }
 
 function SwitchPageType(URLType) {
@@ -297,6 +224,8 @@ function ChangeURL() {
         link.href = url + ":" + ports[i];
     }
 }
+
+var url = getAddress(url);
 
 // 在页面加载时调用检查语言选择的函数
 window.addEventListener("load", RedirectPage);
