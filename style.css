@@ -132,6 +132,11 @@ div.content_section_text a:hover {
 	background-color:black;
 	color:#DCDFE6;
 }
+.wapmz {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
 
 @media (prefers-color-scheme: dark) {
 	body,html {
