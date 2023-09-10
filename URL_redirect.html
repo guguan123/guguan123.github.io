@@ -72,9 +72,9 @@
 </head>
 
 <body onload="addEventListener()">
-    <noscript id="noscript">
+    <noscript>
         <!--向不支持JS脚本的浏览器报错-->
-        <h1 id="warning">JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
+        <h1>JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
     </noscript>
     <div>
         <!--主要的页面元素-->
@@ -107,7 +107,9 @@
                     console.error("网址不能为空！");
                 }
             } else {
-                if (!url.match(/^https?:\/\//i)) { // 识别链接是否带有“http://”或者“https://”
+                var regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                if (!regex.test(url)) {
+                    console.log("url 是合法链接");
                     url = 'http://' + url; // 如果没有将在链接前面添加“http://”
                 }
                 window.location.href = url;
