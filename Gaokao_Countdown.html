@@ -202,7 +202,6 @@
         var examTime = examDate.getTime(); // 获取高考日期时间戳
         let AccessTimeReturnVar = 0; // 函数返回变量（如果变量为1就使用浏览器时间计算倒计时，如果变量为2就使用在线时间计算倒计时）
         let threshold = 30 * 1000; // 定义阈值为30秒（如果浏览器时间与在线时间的差别大于阈值，就将变量“AccessTimeReturnVar”设为2）
-        var HiddenElements = 0;
         var TimeVar = 0;
         var onlineTime;
         var currentTime;
@@ -249,20 +248,9 @@
             console.log("倒计时的时间差：" + timeDifference);
 
             if (timeDifference > 0) {
-                if (HiddenElements !== 1) {
-                    // 如果计时器的元素被错误隐藏了就解除隐藏
-                    document.getElementById("countdown").style.display = "block";
-                    HiddenElements = 0;
-                }
                 // 更新倒计时显示
                 document.getElementById("countdown").innerHTML = days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒";
             } else {
-                if (HiddenElements !== 1) {
-                    console.log("倒计时结束，隐藏倒计时");
-                    document.getElementById("countdown").style.display = "none";
-                    HiddenElements = 1;
-                }
-
                 // 修改元素的文本内容
                 document.getElementById("countdownText").innerText = "倒计时结束";
             }
@@ -342,12 +330,9 @@
     </div>
     <div class="container">
         <div class="white-half">
-            <noscript>
-                <h1>需要 JavaScript！您必须启用 JavaScript 以确保倒计时正常运行</h1>
-            </noscript>
             <h1 class="Main_text" id="countdownText">
                 距离高考还有
-                <div id="countdown">警告：此页面无法在较旧的浏览器下运行</div>
+                <div id="countdown">警告：倒计时无法在较旧或者不支持 JavaScript 的浏览器下运行</div>
             </h1>
             <p class="pageContent"></p>
             <p class="maxim">吾尝终日而思矣，不如须臾之所学也。吾尝跂而望矣，不如登高之博见也。——《劝学》</p>
