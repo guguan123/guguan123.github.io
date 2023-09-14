@@ -253,6 +253,34 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     SwitchPageType(URLType) //隐藏不需要的元素
 
+
+    // 获取当前页面的协议
+    var currentProtocol = window.location.protocol;
+
+    // 如果当前页面是 HTTPS 协议
+    if (currentProtocol === 'https:') {
+
+        // 获取页面中的所有链接元素
+        var links = document.getElementsByTagName('a');
+
+        // 循环遍历每个链接元素
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+
+            // 检查链接是否有特定的 class 属性
+            if (link.classList.contains('change-protocol')) {
+                // 获取链接的 href 属性值
+                var href = link.getAttribute('href');
+
+                // 如果当前页面是 HTTPS 协议，将链接的 http:// 替换为 https://
+                if (currentProtocol === 'https:' && href.startsWith('http://')) {
+                    href = href.replace('http://', 'https://');
+                    link.setAttribute('href', href);
+                }
+            }
+        }
+    }
+
 });
 
 // 引用了https://www.runoob.com/js/js-cookies.html ， https://www.runoob.com/html/html5-webstorage.html 的一些代码
