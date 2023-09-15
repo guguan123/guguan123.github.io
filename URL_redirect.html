@@ -80,7 +80,7 @@
         <!--主要的页面元素-->
         <form onsubmit="addPrefix(); return false;">
             <label id="Label" for="myURL">URL:</label>
-            <input type="text" id="myURL" name="url">
+            <input type="url" id="myURL" name="url">
             <button type="button" onclick="addPrefix()" id="Button" title="Redirects to this URL">Go</button>
         </form>
     </div>
@@ -109,7 +109,6 @@
             } else {
                 var regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
                 if (!regex.test(url)) {
-                    console.log("url 是合法链接");
                     url = 'http://' + url; // 如果没有将在链接前面添加“http://”
                 }
                 window.location.href = url;
