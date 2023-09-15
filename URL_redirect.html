@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+    <title id="Title">URL redirect</title>
+    <link rel="icon" href="./images/URL_redirect.svg" type="image/svg+xml">
+    <link rel="shortcut icon" href="./images/URL_redirect.svg" type="image/svg+xml">
+
+    <!--[if lt IE 9]>
+        <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        var language;
+
+        function addEventListener() { // 检查语言设置
+            var cname=getCookie("lang");
+            if (cname!="") {
+                language = cname.toLowerCase();
+            }
+            else 
+            {
+                if (typeof(Storage)!=="undefined") {
+                    var lname = localStorage.getItem("lang");
+                    if (lname!=null) {
+                        language = lname.toLowerCase();
+                    } else {
+                        language = (navigator.language || navigator.userLanguage).toLowerCase();
+                    }
+                } else {
+                    language = (navigator.language || navigator.userLanguage).toLowerCase();
+                }
+            }
+            Change_Text();
+        }
+
+        function getCookie(lang) {
+            var name = lang + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++) 
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+    </script>
+
+    <style type="text/css">
+        div {
+            /*将页面元素居中*/
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #242424;
+            }
+            input {
+                color: Black;
+            }
+            label {
+                /*color: lightgray;*/
+                color: #f5f5f5;
+            }
+        }
+    </style>
+
+</head>
+
+<body onload="addEventListener()">
+    <noscript>
+        <!--向不支持JS脚本的浏览器报错-->
+        <h1>JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
+    </noscript>
+    <div>
+        <!--主要的页面元素-->
+        <form onsubmit="addPrefix(); return false;">
+            <label id="Label" for="myURL">URL:</label>
+            <input type="url" id="myURL" name="url">
+            <button type="button" onclick="addPrefix()" id="Button" title="Redirects to this URL">Go</button>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        function Change_Text() {
+            if (language!="zh-cn") { //根据language变量修改页面内容的语言
+                document.documentElement.setAttribute("lang", "en");
+            } else {
+                document.getElementById('Title').innerHTML = '网址重定向';
+                document.getElementById('Label').innerHTML = '网址：';
+                document.getElementById('Button').innerHTML = '前往';
+                document.getElementById("Button").setAttribute("title", "重定向至此网址");
+                document.documentElement.setAttribute("lang", "zh-cn");
+            }
+        }
+
+        function addPrefix() {
+            var url = document.getElementById("myURL").value;
+            if (!url) {
+                if (language!="zh-cn") {
+                    console.error("The URL cannot be null!");
+                } else {
+                    console.error("网址不能为空！");
+                }
+            } else {
+                var regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                if (!regex.test(url)) {
+                    url = 'http://' + url; // 如果没有将在链接前面添加“http://”
+                }
+                window.location.href = url;
+            }
+            
+        }
+    </script>
+</body>
+</html>
