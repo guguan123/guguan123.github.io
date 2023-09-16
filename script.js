@@ -233,10 +233,16 @@ window.addEventListener("load", RedirectPage);
 // 当文档加载完成时，执行回调函数
 document.addEventListener("DOMContentLoaded", () => {
     // 为按钮添加点击事件，调用设置语言选择的函数
-    var button = document.querySelector("button");
-    button.addEventListener("click", () => {
-        setLanguage(button.textContent);
+    var LanguageButton = document.querySelector(".SwitchLanguage");
+    LanguageButton.addEventListener("click", () => {
+        var htmlElement = document.querySelector("html");
+        if (htmlElement.getAttribute("lang") === "zh-cn") {
+            setLanguage("en");
+        } else {
+            setLanguage("zh-cn");
+        }
     });
+
 
     //如果处于黑暗模式，就把Ubuntu Logo换成对应的图片
     var logo = document.getElementById("logo");
