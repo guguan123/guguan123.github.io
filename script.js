@@ -206,21 +206,21 @@ function SwitchPageType(URLType) {
 }
 
 function ChangeURL() {
-    //获取当前网页的地址
+    // 获取当前网页的地址
     var url = window.location.href;
-    //定义一个正则表达式，匹配网页地址的最后一部分
+    // 定义一个正则表达式，匹配网页地址的最后一部分
     var regex = /\/[^\/]*$/;
-    //用空字符串替换掉最后一部分
+    // 用空字符串替换掉最后一部分
     url = url.replace(regex, "");
-    //定义一个数组，包含所有需要修改的链接的id
+    // 定义一个数组，包含所有需要修改的链接的id
     var ids = ["MCSM","qBT", "Netdisk", "router", "ASUSDM"];
-    //定义一个数组，包含每个链接的端口号
+    // 定义一个数组，包含每个链接的端口号
     var ports = ["23333","8080", "5244", "8084", "8085"];
-    //遍历数组，对每个链接执行相同的操作
+    // 遍历数组，对每个链接执行相同的操作
     for (var i = 0; i < ids.length; i++) {
-        //获取当前链接的元素
+        // 获取当前链接的元素
         var link = document.getElementById(ids[i]);
-        //修改href属性，拼接端口号
+        // 修改href属性，拼接端口号
         link.href = url + ":" + ports[i];
     }
 }
@@ -235,16 +235,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // 为按钮添加点击事件，调用设置语言选择的函数
     var LanguageButton = document.querySelector(".SwitchLanguage");
     LanguageButton.addEventListener("click", () => {
+        // 获取 <html> 元素的 lang 属性来识别页面语言
         var htmlElement = document.querySelector("html");
-        if (htmlElement.getAttribute("lang") === "zh-cn") {
+        // 如果页面语言是英文就设置为中文页面，否则就切换为英文页面
+        if (htmlElement.getAttribute("lang") === "en") {
+            setLanguage("zh-cn");
+        } else if (htmlElement.getAttribute("lang") === "zh-cn") {
             setLanguage("en");
         } else {
-            setLanguage("zh-cn");
+            console.error("Error in lang attribute of <html> markup");
         }
     });
 
 
-    //如果处于黑暗模式，就把Ubuntu Logo换成对应的图片
+    // 如果处于黑暗模式，就把Ubuntu Logo换成对应的图片
     var logo = document.getElementById("logo");
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         logo.src = "./images/ubuntu-logo_dark.png";
@@ -257,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.log("The return value of the access method detection is: " + URLType);
     }
-    SwitchPageType(URLType) //隐藏不需要的元素
+    SwitchPageType(URLType) // 隐藏不需要的元素
 
 
     // 获取当前页面的协议
