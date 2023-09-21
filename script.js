@@ -206,23 +206,14 @@ function SwitchPageType(URLType) {
 }
 
 function ChangeURL() {
-    // 获取当前网页的地址
-    var url = window.location.href;
-    // 定义一个正则表达式，匹配网页地址的最后一部分
-    var regex = /\/[^\/]*$/;
-    // 用空字符串替换掉最后一部分
-    url = url.replace(regex, "");
-    // 定义一个数组，包含所有需要修改的链接的id
-    var ids = ["MCSM","qBT", "Netdisk", "router", "ASUSDM"];
-    // 定义一个数组，包含每个链接的端口号
-    var ports = ["23333","8080", "5244", "8084", "8085"];
-    // 遍历数组，对每个链接执行相同的操作
-    for (var i = 0; i < ids.length; i++) {
-        // 获取当前链接的元素
-        var link = document.getElementById(ids[i]);
-        // 修改href属性，拼接端口号
-        link.href = url + ":" + ports[i];
-    }
+    // 将所有具有 custom-link 类的链接的域名更改为当前域名
+    var links = document.querySelectorAll('.custom-link');
+    var currentHost = window.location.host;
+
+    links.forEach(function(link) {
+        var updatedHref = link.href.replace('host', currentHost);
+        link.href = updatedHref;
+    });
 }
 
 var url = getAddress(url);
