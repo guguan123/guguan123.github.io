@@ -226,13 +226,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // 为按钮添加点击事件，调用设置语言选择的函数
     var LanguageButton = document.querySelector(".SwitchLanguage");
     LanguageButton.addEventListener("click", () => {
-        // 获取 <html> 元素的 lang 属性来识别页面语言
-        var htmlElement = document.querySelector("html");
-        // 如果页面语言是英文就设置为中文页面，否则就切换为英文页面
-        if (htmlElement.getAttribute("lang") === "en") {
-            setLanguage("zh-cn");
-        } else if (htmlElement.getAttribute("lang") === "zh-cn") {
+
+        // 获取 <html> 元素的 lang 属性来识别页面语言 【作废】
+        //var htmlElement = document.querySelector("html");
+
+        // 如果语言切换按钮的 lang 属性为“en”就切换为英文页面
+        if (LanguageButton.getAttribute("lang") === "en") {
             setLanguage("en");
+        } else if (LanguageButton.getAttribute("lang") === "zh-cn") {
+            // 如果语言切换按钮的 lang 属性为“zh-cn”就切换为中文页面
+            setLanguage("zh-cn");
         } else {
             console.error("Error in lang attribute of <html> markup");
         }
