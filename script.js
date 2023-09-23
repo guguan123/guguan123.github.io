@@ -1,7 +1,6 @@
 // 检查是否存在cookie或localStorage中的语言选择
 function checkLanguage() {
-
-    var cname=getCookie("lang");
+    var cname=getLangCookie("lang");
     if (cname!="") {  // 通过检测变量 cname 是否为 "" 来检测cookie是否存在
         // cookie存在，设置变量 language 为变量 cname
         var language = cname;
@@ -23,41 +22,37 @@ function checkLanguage() {
         }
     }
 
-    //将language变量转为小写
+    // 将language变量转为小写
     var language = language.toLowerCase();
-    //返回变量language
+    // 返回变量language
     return language;
 }
 
 function RedirectPage() {
-    language = checkLanguage()
-    // 延期cookie
-    setCookie(language)
-    // 根据语言选择重定向到相应的html文件
-    var targetUrl = language === "zh-cn" ? "index_zh.html" : "index.html";
+    // 获取之前存储的语言设置
+    language = checkLanguage();
 
-    // 获取当前的url中的文件名部分
-    //var currentUrl = window.location.pathname.split("/").pop();
+    // 规定语言列表
+    let languageList = [en, zh-cn];
+    if (languageList.includes(language)) { // 当获取的语言在语言列表里时
+        // 延期cookie
+        setCookie(language);
+        // 根据语言选择重定向到相应的html文件
+        var targetUrl = language === "zh-cn" ? "index_zh.html" : "index.html";
 
-    // 只有当当前的url不是目标url时，才进行重定向
-    //if (currentUrl !== targetUrl) {
-    //    window.location.href = targetUrl;
-    //}
-
-    // 获取当前页面html元素的lang属性并将其转换为小写
-    var lang = document.documentElement.lang.toLowerCase();
-    if (language === "english") {
-        language = "en";
-    }
-
-    // 只有当当前的语言不是目标语言时，才进行重定向
-    if (lang !== language) {
-        window.location.href = targetUrl;
+        // 获取当前页面html元素的lang属性并将其转换为小写
+        var lang = document.documentElement.lang.toLowerCase();
+        // 只有当当前的语言不是目标语言时，才进行重定向
+        if (lang !== language) {
+            window.location.href = targetUrl;
+        }
+    } else { // 如果获取的语言不在语言列表里
+        console.error("Unsupported languages");
     }
 }
 
 // 返回指定 cookie 值的函数
-function getCookie(lang)
+function getLangCookie(lang)
 {
     var name = lang + "=";
     var ca = document.cookie.split(';');
@@ -108,7 +103,7 @@ function getAddress(url) {
     return url;
 }
 function CompareURL() {
-    function checkUrl(PossibleURL) { // 定义一个函数，参数为变量PossibleURL
+    function checkUrl(PossibleURL) {
         var urls = ["server", "192.168.0.2", "192.168.194.2", "guguan.freehk.svipss.top", "guguan.000.pe", "guguan123.github.io"]; // URL数组
         var URLnum = urls.indexOf(PossibleURL)
         if (URLnum != -1) { // 如果变量PossibleURL在URL数组中
@@ -120,35 +115,30 @@ function CompareURL() {
                     console.log('Detected access via LAN or ZeroTier');
                 }
                 return 1;
-            } else {
-            if (URLnum == 3) {   //用户通过内网穿透访问
+            } else if (URLnum == 3) {   //用户通过内网穿透访问
                 if (lang === 'zh-cn') {
                     console.log('检测到通过内网穿透访问');
                 } else {
                     console.log('Detected access via frp');
                 }
                 return 2;
-            } else {
-                if (URLnum == 4) {   //用户访问的是云服务器
-                    if (lang === 'zh-cn') {
-                        console.log('检测到访问的是云服务器');
-                    } else {
-                        console.log('Detected access to cloud server');
-                    }
-                    return 3;
+            } else if (URLnum == 4) {   //用户访问的是云服务器
+                if (lang === 'zh-cn') {
+                    console.log('检测到访问的是云服务器');
                 } else {
-                    if (URLnum == 5) {   //用户访问的是GitHub Pages
-                        if (lang === 'zh-cn') {
-                            console.log('检测到访问的是GitHub Pages');
-                        } else {
-                            console.log('Detected access to GitHub Pages');
-                        }
-                        return 4;
-                    }
+                    console.log('Detected access to cloud server');
                 }
-            }
+                return 3;
+            } else if (URLnum == 5) {   //用户访问的是GitHub Pages
+                if (lang === 'zh-cn') {
+                    console.log('检测到访问的是GitHub Pages');
+                } else {
+                    console.log('Detected access to GitHub Pages');
+                }
+                return 4;
             }
         } else { // 如果变量PossibleURL不在URL数组中
+            // 将认为用户访问的是GitHub Pages
             return 4;
             // 通过http测试是否可以连接服务器其它端口
         }
@@ -237,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // 如果语言切换按钮的 lang 属性为“zh-cn”就切换为中文页面
             setLanguage("zh-cn");
         } else {
-            console.error("Error in lang attribute of <html> markup");
+            console.error("Error in lang attribute of <button> markup");
         }
     });
 
