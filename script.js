@@ -33,7 +33,7 @@ function RedirectPage() {
     language = checkLanguage();
 
     // 规定语言列表
-    let languageList = [en, zh-cn];
+    let languageList = ["en", "zh-cn"];
     if (languageList.includes(language)) { // 当获取的语言在语言列表里时
         // 延期cookie
         setCookie(language);
