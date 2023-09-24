@@ -4,9 +4,7 @@ function checkLanguage() {
     if (cname!="") {  // 通过检测变量 cname 是否为 "" 来检测cookie是否存在
         // cookie存在，设置变量 language 为变量 cname
         var language = cname;
-    }
-    else 
-    {
+    } else {
         // 检查浏览器是否支持 localStorage
         if (typeof(Storage)!=="undefined") {
             // 支持 localStorage  sessionStorage 对象，读取localStorage
@@ -52,8 +50,7 @@ function RedirectPage() {
 }
 
 // 返回指定 cookie 值的函数
-function getLangCookie(lang)
-{
+function getLangCookie(lang) {
     var name = lang + "=";
     var ca = document.cookie.split(';');
     for(var i=0; i<ca.length; i++) {
@@ -64,7 +61,7 @@ function getLangCookie(lang)
 }
 
 // 设置cookie
-function setCookie(language) {
+function setLangCookie(language) {
     // 获取当前时间
     var now = new Date();
     // 设置过期时间为30天后
@@ -79,7 +76,7 @@ function setCookie(language) {
 // 设置cookie或localStorage中的语言选择
 function setLanguage(language) {
     // 设置Cookie中的语言选择
-    setCookie(language)
+    setLangCookie(language);
 
     // 设置localStorage中的语言选择
     localStorage.setItem("lang", language);
@@ -105,7 +102,7 @@ function getAddress(url) {
 function CompareURL() {
     function checkUrl(PossibleURL) {
         var urls = ["server", "192.168.0.2", "192.168.194.2", "guguan.freehk.svipss.top", "guguan.000.pe", "guguan123.github.io"]; // URL数组
-        var URLnum = urls.indexOf(PossibleURL)
+        var URLnum = urls.indexOf(PossibleURL);
         if (URLnum != -1) { // 如果变量PossibleURL在URL数组中
             var lang = document.documentElement.lang.toLowerCase();
             if (URLnum == 0 || URLnum == 1 || URLnum == 2) { //用户通过局域网或者ZeroTier访问
@@ -159,7 +156,7 @@ function CompareURL() {
 
 function SwitchPageType(URLType) {
     // 获取id为0和1的元素
-    var elem0 = document.getElementById("null");
+    //var elem0 = document.getElementById("null");
     var elem1 = document.getElementById("a");
     var elem2 = document.getElementById("b");
     var elem3 = document.getElementById("c");
@@ -245,7 +242,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         console.log("The return value of the access method detection is: " + URLType);
     }
-    SwitchPageType(URLType) // 隐藏不需要的元素
+    SwitchPageType(URLType); // 隐藏不需要的元素
 
 
     // 获取当前页面的协议

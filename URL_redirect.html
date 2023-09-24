@@ -15,7 +15,7 @@
         var language;
 
         function addEventListener() { // 检查语言设置
-            var cname=getCookie("lang");
+            var cname=getLangCookie("lang");
             if (cname!="") {
                 language = cname.toLowerCase();
             }
@@ -35,7 +35,7 @@
             Change_Text();
         }
 
-        function getCookie(lang) {
+        function getLangCookie(lang) {
             var name = lang + "=";
             var ca = document.cookie.split(';');
             for(var i=0; i<ca.length; i++) 
