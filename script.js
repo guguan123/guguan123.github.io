@@ -34,7 +34,7 @@ function RedirectPage() {
     let languageList = ["en", "zh-cn"];
     if (languageList.includes(language)) { // 当获取的语言在语言列表里时
         // 延期cookie
-        setCookie(language);
+        setLangCookie(language);
         // 根据语言选择重定向到相应的html文件
         var targetUrl = language === "zh-cn" ? "index_zh.html" : "index.html";
 
