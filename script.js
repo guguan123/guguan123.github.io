@@ -203,11 +203,6 @@ function ChangeURL() {
     });
 }
 
-var url = getAddress(url);
-
-// 在页面加载时调用检查语言选择的函数
-window.addEventListener("load", RedirectPage);
-
 // 当文档加载完成时，执行回调函数
 document.addEventListener("DOMContentLoaded", () => {
     // 为按钮添加点击事件，调用设置语言选择的函数
@@ -273,5 +268,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+var url = getAddress(url);
+
+// 在页面加载时调用检查语言选择的函数
+window.addEventListener("load", RedirectPage);
 
 // 引用了https://www.runoob.com/js/js-cookies.html ， https://www.runoob.com/html/html5-webstorage.html 的一些代码
