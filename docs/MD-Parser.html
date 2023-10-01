@@ -1,33 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <title>MD Parser</title>
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    </head>
-    <body>
-        <div id="content"></div>
-
-        <script>
-            document.addEventListener("DOMContentLoaded", () => {
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, "\\$&");
-                    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, " "));
-                }
-
-                var fileUrl = getParameterByName('file');
-
-                fetch(fileUrl)
-                    .then(response => response.text())
-                    .then(markdown => {
-                    var html = marked(markdown);
-                    document.getElementById('content').innerHTML = html;
-                });
-            });
+<head>
+  <meta charset="utf-8"/>
+  <title>Marked in the browser</title>
+</head>
+<body>
+  <div id="content"></div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    // 使用fetch API加载.md文件
+    fetch('BlogPrivacy.md')
+      .then(response => response.text())
+      .then(data => {
+        // 使用marked库渲染Markdown文本
+        document.getElementById('content').innerHTML = marked(data);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
   </script>
 </body>
 </html>
