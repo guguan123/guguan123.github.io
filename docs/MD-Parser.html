@@ -1,23 +1,34 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8"/>
-  <title>Marked in the browser</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markdown Viewer</title>
+    <script src="https://cdn.jsdelivr.net/npm/showdown"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div id="content"></div>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script>
-    // 使用fetch API加载.md文件
-    fetch('BlogPrivacy.md')
-      .then(response => response.text())
-      .then(data => {
-        // 使用marked库渲染Markdown文本
-        document.getElementById('content').innerHTML = marked(data);
-      })
-      .catch(error => {
-        console.error('Error:', error);
-      });
-  </script>
+    <div id="markdownContent"></div>
+
+    <script>
+        // 使用 Fetch API 从文件中获取 Markdown 内容
+        fetch('BlogPrivacy.md')
+            .then(response => response.text())
+            .then(markdown => {
+                // 创建一个新的 Showdown 实例
+                const converter = new showdown.Converter();
+                // 将 Markdown 转换为 HTML
+                const html = converter.makeHtml(markdown);
+                // 将 HTML 内容插入到页面中
+                document.getElementById('markdownContent').innerHTML = html;
+            });
+    </script>
 </body>
 </html>
