@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Markdown文档查看器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="markdown-content"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // 获取URL参数
+        function getParameterByName(name) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
+
+        // 解析Markdown文档
+        function parseMarkdown(markdownUrl) {
+            fetch(markdownUrl)
+                .then(response => response.text())
+                .then(markdown => {
+                    const html = marked(markdown);
+                    document.getElementById('markdown-content').innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
+        // 获取URL中的markdown文档地址参数
+        const markdownUrlParam = getParameterByName('markdownUrl');
+
+        // 如果有markdown文档地址参数，则解析并显示Markdown文档内容
+        if (markdownUrlParam) {
+            parseMarkdown(markdownUrlParam);
+        }
+    </script>
+</body>
+</html>
