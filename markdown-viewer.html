@@ -2,7 +2,7 @@
 <html>
 <!-- 使用案例：https://example.com/markdown-viewer.html?markdownUrl=https://example.com/example.md -->
 <head>
-    <title>Markdown文档查看器</title>
+    <title>Markdown document viewer</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,6 +11,10 @@
     </style>
 </head>
 <body>
+    <noscript>
+        <!--向不支持JS脚本的浏览器报错-->
+        <h1>JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
+    </noscript>
     <div id="markdown-content"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
