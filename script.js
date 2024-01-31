@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 如果处于黑暗模式，就把Ubuntu Logo换成对应的图片
     var logo = document.getElementById("logo");
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        logo.src = "./images/ubuntu-logo_dark.png";
+        logo.src = "https://s1.imagehub.cc/images/2024/01/31/149673b807a9460f17a5c8801097b1df.png";
     }
 
     var URLType = CompareURL();
