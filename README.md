@@ -1,5 +1,5 @@
 # guguan123
-一个几乎啥也不懂的初中生写的没啥用的Web。
+一个几乎啥也不懂的初中生写的没啥用的一坨静态网站。
 index.html和index_zh.html是用apache2 default page改的，增加了中英文切换和黑暗模式。
 
 ### URL_redirect.html
