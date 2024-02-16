@@ -101,7 +101,7 @@ function getAddress(url) {
 }
 function CompareURL() {
     function checkUrl(PossibleURL) {
-        var urls = ["server2412", "192.168.0.2", "192.168.194.2", "guguan.freehk.svipss.top", "guguan.000.pe", "guguan123.github.io"]; // URL数组
+        var urls = ["server2412", "192.168.0.2", "192.168.194.2", "server.guguan.hz,cz", "guguan.000.pe", "guguan123.github.io"]; // URL数组
         var URLnum = urls.indexOf(PossibleURL);
         if (URLnum != -1) { // 如果变量PossibleURL在URL数组中
             var lang = document.documentElement.lang.toLowerCase();
