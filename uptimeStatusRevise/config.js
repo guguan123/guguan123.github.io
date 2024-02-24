@@ -32,7 +32,7 @@ window.Config = {
   Navi: [
     {
       text: '首页',
-      url: './'
+      url: '/'
     }
   ]
 };
