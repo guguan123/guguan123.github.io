@@ -15,8 +15,10 @@ function checkLanguage() {
                 var language = navigator.language || navigator.userLanguage;
             }
         } else {
-            // 不支持 web 存储，直接读取浏览器语言
-            var language = navigator.language || navigator.userLanguage;
+            // 不支持 web 存储，直接读取浏览器语言（废弃）
+            //var language = navigator.language || navigator.userLanguage;
+
+            console.error("Failed to get language setting.");
         }
     }
 
