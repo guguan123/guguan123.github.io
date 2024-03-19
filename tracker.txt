@@ -22,8 +22,6 @@ udp://tracker.moeking.me:6969/announce
 
 #udp://tracker.monitorit4.me:6969/announce
 
-https://tracker.gbitt.info:443/announce
-
 http://tracker.mywaifu.best:6969/announce
 
 udp://tracker.0x7c0.com:6969/announce
@@ -39,3 +37,19 @@ https://tracker.renfei.net:443/announce
 udp://tracker.tryhackx.org:6969/announce
 
 #udp://u4.trakx.crim.ist:1337/announce
+
+https://tracker.tamersunion.org/announce
+
+http://fosstorrents.com:6969/announce
+
+https://opentracker.i2p.rocks:443/announce
+
+http://tracker.dler.org:6969/announce
+
+https://tracker.gbitt.info/announce
+
+http://tracker.ipv6tracker.ru/announce
+
+http://tracker.mywaifu.best:6969/announce
+
+https://tracker.lilithraws.org/announce
