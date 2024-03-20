@@ -1,4 +1,4 @@
-#udp://tracker.openbittorrent.com:6969
+udp://tracker.openbittorrent.com:6969
 
 udp://tracker.opentrackr.org:1337/announce
 
@@ -14,19 +14,11 @@ http://open.acgtracker.com:1096/announce
 
 udp://explodie.org:6969
 
-#udp://tracker.army:6969/announce
-
 udp://tracker.moeking.me:6969/announce
-
-#udp://tracker.jonaslsa.com:6969/announce
-
-#udp://tracker.monitorit4.me:6969/announce
 
 http://tracker.mywaifu.best:6969/announce
 
 udp://tracker.0x7c0.com:6969/announce
-
-#tcp://opentracker.io:80/announce
 
 udp://open.demonii.com:1337
 
@@ -35,8 +27,6 @@ udp://tracker.cyberia.is:6969/announce
 https://tracker.renfei.net:443/announce
 
 udp://tracker.tryhackx.org:6969/announce
-
-#udp://u4.trakx.crim.ist:1337/announce
 
 https://tracker.tamersunion.org/announce
 
