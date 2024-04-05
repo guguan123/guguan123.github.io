@@ -1,17 +1,67 @@
+# by https://github.com/guguan123
+
 param(
-    [switch]$NoDisableAdapter,         # 禁用无线网络适配器的开关，如果在关闭热点时不想禁用无线网络适配器，则使用此开关
-    [switch]$EnableHotspot,            # 启用热点的开关
-    [switch]$DisableHotspot,           # 禁用热点的开关
-    [switch]$EnableAdapter,            # 启用无线网络适配器的开关
-    [switch]$DisableAdapter            # 禁用无线网络适配器的开关
+    [switch]$NoAdministratorRequired,   # 忽略权限检测
+    [switch]$Help,                      # 获取帮助
+    [switch]$EnableHotspot,             # 启用热点的开关
+    [switch]$DisableHotspot,            # 禁用热点的开关
+    [switch]$EnableAdapter,             # 启用无线网络适配器的开关
+    [switch]$DisableAdapter             # 禁用无线网络适配器的开关
 )
 
+
 # 参数示例：
-# --NoDisableAdapter 或 -NDA: 在关闭WiFi热点时，不禁用无线网络适配器。
-# --EnableHotspot 或 -EH: 直接开启WiFi热点。
-# --DisableHotspot 或 -DH: 直接关闭WiFi热点。
-# --EnableAdapter 或 -EA: 直接启用无线网络适配器。
-# --DisableAdapter 或 -DA: 直接禁用无线网络适配器。
+# -EnableHotspot: 直接开启WiFi热点。
+# -DisableHotspot: 直接关闭WiFi热点。
+# -EnableAdapter: 直接启用无线网络适配器。
+# -DisableAdapter: 直接禁用无线网络适配器。
+# -NoAdministratorRequired: 忽略管理员权限检测运行脚本。
+# -help: 获取帮助
+#
+# 如果无输入参数则自动开/关热点
+
+
+# 获取当前操作系统版本信息
+$osVersion = [System.Environment]::OSVersion.Version
+# 定义 Windows 10 的最低版本
+$win10Version = New-Object System.Version "10.0"
+if ($osVersion -lt $win10Version) {
+    Write-Host "Warning: System versions lower than Windows 10"
+}
+
+# 解析命令行参数并执行相应操作
+# 检查参数是否包含帮助开关
+if ($Help -or $args -contains "-?") {
+    # 获取当前脚本文件的完整路径
+    $scriptPath = $MyInvocation.MyCommand.Name
+    # 使用Split-Path获取文件名部分
+    $scriptFileName = Split-Path -Path $scriptPath -Leaf
+    # Output help information
+    Write-Host "Usage: $scriptFileName [options]"
+    Write-Host "-EnableHotspot: Directly enables WiFi hotspot."
+    Write-Host "-DisableHotspot: Directly disables WiFi hotspot."
+    Write-Host "-EnableAdapter: Directly enables the wireless network adapter."
+    Write-Host "-DisableAdapter: Directly disables the wireless network adapter."
+    Write-Host "-NoAdministratorRequired: Runs the script ignoring administrator privileges."
+    Write-Host "-help: Get help"
+    Write-Host ""
+    Write-Host "If no input parameters are provided, it automatically toggles the hotspot."
+    exit
+}
+# 如果没有帮助开关，则执行脚本的其他逻辑
+
+# 获取当前用户的 Windows 身份验证
+$WindowsIdentity = [System.Security.Principal.WindowsIdentity]::GetCurrent()
+# 创建 Windows 身份验证的 WindowsPrincipal 对象
+$WindowsPrincipal = New-Object System.Security.Principal.WindowsPrincipal($WindowsIdentity)
+# 检查用户是否属于管理员组
+$IsAdmin = $WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInRole]::Administrator)
+if (!$IsAdmin) {
+    Write-Host "The script requires administrator privileges to run"
+    if (!$NoAdministratorRequired -or $args -contains "-NAR") {
+        exit
+    }
+}
 
 Add-Type -AssemblyName System.Runtime.WindowsRuntime  # 加载 Windows Runtime 程序集
 $asTaskGeneric = ([System.WindowsRuntimeSystemExtensions].GetMethods() | ? { $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
@@ -68,35 +118,31 @@ Function ManageHotspot($enable) {
         } else { 
             Await ($tetheringManager.StopTetheringAsync()) ([Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult])  # 关闭热点
             Write-Host "Network sharing has been disabled."  # 显示消息
-            if (!$NoDisableAdapter) {  # 如果未指定禁用适配器，则禁用适配器
-                EnableDisableWiFiAdapter $false
-                Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器已停用
-            }
         }
     } catch {
         Write-Host "An error occurred: $_"  # 处理异常情况
     }
 }
 
-# 解析命令行参数并执行相应操作
+
 if ($EnableAdapter) {
     EnableDisableWiFiAdapter $true
 }
-elseif ($DisableAdapter) {
-    EnableDisableWiFiAdapter $false
-}
 elseif ($EnableHotspot) {
-    EnableDisableWiFiAdapter $true
+    if ($EnableAdapter) {
+        Start-Sleep -Seconds 5  # 如果还附带有"-EnableAdapter"开关就等待5秒钟以确保适配器启用
+    }
     ManageHotspot $true
 }
 elseif ($DisableHotspot) {
     ManageHotspot $false
 }
+elseif ($DisableAdapter) {
+    EnableDisableWiFiAdapter $false
+}
 else {
     # 如果没有给出直接的命令，则根据当前状态执行默认操作
     try {
-        EnableDisableWiFiAdapter $true
-        Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器启用
         $connectionProfile = [Windows.Networking.Connectivity.NetworkInformation,Windows.Networking.Connectivity,ContentType=WindowsRuntime]::GetInternetConnectionProfile()
         if ($connectionProfile -eq $null) {
             Write-Host "No internet connection profile found. Please check your network connection."
