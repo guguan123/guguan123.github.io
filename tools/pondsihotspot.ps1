@@ -38,9 +38,7 @@ Function EnableDisableWiFiAdapter($enable) {
         if ($wifiAdapter) {
             if ($enable) {
                 Enable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # 启用适配器
-                Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器启用
             } else {
-                Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器已停用
                 Disable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # 禁用适配器
             }
         } else {
@@ -72,6 +70,7 @@ Function ManageHotspot($enable) {
             Write-Host "Network sharing has been disabled."  # 显示消息
             if (!$NoDisableAdapter) {  # 如果未指定禁用适配器，则禁用适配器
                 EnableDisableWiFiAdapter $false
+                Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器已停用
             }
         }
     } catch {
@@ -97,6 +96,7 @@ else {
     # 如果没有给出直接的命令，则根据当前状态执行默认操作
     try {
         EnableDisableWiFiAdapter $true
+        Start-Sleep -Seconds 5  # 等待5秒钟以确保适配器启用
         $connectionProfile = [Windows.Networking.Connectivity.NetworkInformation,Windows.Networking.Connectivity,ContentType=WindowsRuntime]::GetInternetConnectionProfile()
         if ($connectionProfile -eq $null) {
             Write-Host "No internet connection profile found. Please check your network connection."
