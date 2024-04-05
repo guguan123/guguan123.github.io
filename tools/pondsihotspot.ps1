@@ -1,22 +1,22 @@
 param(
-    [switch]$NoDisableAdapter,         # ç¦ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨çš„å¼€å…³ï¼Œå¦‚æœåœ¨å…³é—­çƒ­ç‚¹æ—¶ä¸æƒ³ç¦ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨ï¼Œåˆ™ä½¿ç”¨æ­¤å¼€å…³
-    [switch]$EnableHotspot,            # å¯ç”¨çƒ­ç‚¹çš„å¼€å…³
-    [switch]$DisableHotspot,           # ç¦ç”¨çƒ­ç‚¹çš„å¼€å…³
-    [switch]$EnableAdapter,            # å¯ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨çš„å¼€å…³
-    [switch]$DisableAdapter            # ç¦ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨çš„å¼€å…³
+    [switch]$NoDisableAdapter,         # ½ûÓÃÎŞÏßÍøÂçÊÊÅäÆ÷µÄ¿ª¹Ø£¬Èç¹ûÔÚ¹Ø±ÕÈÈµãÊ±²»Ïë½ûÓÃÎŞÏßÍøÂçÊÊÅäÆ÷£¬ÔòÊ¹ÓÃ´Ë¿ª¹Ø
+    [switch]$EnableHotspot,            # ÆôÓÃÈÈµãµÄ¿ª¹Ø
+    [switch]$DisableHotspot,           # ½ûÓÃÈÈµãµÄ¿ª¹Ø
+    [switch]$EnableAdapter,            # ÆôÓÃÎŞÏßÍøÂçÊÊÅäÆ÷µÄ¿ª¹Ø
+    [switch]$DisableAdapter            # ½ûÓÃÎŞÏßÍøÂçÊÊÅäÆ÷µÄ¿ª¹Ø
 )
 
-# å‚æ•°ç¤ºä¾‹ï¼š
-# --NoDisableAdapter æˆ– -NDA: åœ¨å…³é—­WiFiçƒ­ç‚¹æ—¶ï¼Œä¸ç¦ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨ã€‚
-# --EnableHotspot æˆ– -EH: ç›´æ¥å¼€å¯WiFiçƒ­ç‚¹ã€‚
-# --DisableHotspot æˆ– -DH: ç›´æ¥å…³é—­WiFiçƒ­ç‚¹ã€‚
-# --EnableAdapter æˆ– -EA: ç›´æ¥å¯ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨ã€‚
-# --DisableAdapter æˆ– -DA: ç›´æ¥ç¦ç”¨æ— çº¿ç½‘ç»œé€‚é…å™¨ã€‚
+# ²ÎÊıÊ¾Àı£º
+# --NoDisableAdapter »ò -NDA: ÔÚ¹Ø±ÕWiFiÈÈµãÊ±£¬²»½ûÓÃÎŞÏßÍøÂçÊÊÅäÆ÷¡£
+# --EnableHotspot »ò -EH: Ö±½Ó¿ªÆôWiFiÈÈµã¡£
+# --DisableHotspot »ò -DH: Ö±½Ó¹Ø±ÕWiFiÈÈµã¡£
+# --EnableAdapter »ò -EA: Ö±½ÓÆôÓÃÎŞÏßÍøÂçÊÊÅäÆ÷¡£
+# --DisableAdapter »ò -DA: Ö±½Ó½ûÓÃÎŞÏßÍøÂçÊÊÅäÆ÷¡£
 
-Add-Type -AssemblyName System.Runtime.WindowsRuntime  # åŠ è½½ Windows Runtime ç¨‹åºé›†
+Add-Type -AssemblyName System.Runtime.WindowsRuntime  # ¼ÓÔØ Windows Runtime ³ÌĞò¼¯
 $asTaskGeneric = ([System.WindowsRuntimeSystemExtensions].GetMethods() | ? { $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and $_.GetParameters()[0].ParameterType.Name -eq 'IAsyncOperation`1' })[0]
 
-# ç­‰å¾…å¼‚æ­¥æ“ä½œå®Œæˆçš„å‡½æ•°
+# µÈ´ıÒì²½²Ù×÷Íê³ÉµÄº¯Êı
 Function Await($WinRtTask, $ResultType) { 
     $asTask = $asTaskGeneric.MakeGenericMethod($ResultType) 
     $netTask = $asTask.Invoke($null, @($WinRtTask)) 
@@ -24,62 +24,62 @@ Function Await($WinRtTask, $ResultType) {
     $netTask.Result 
 } 
 
-# ç­‰å¾…å¼‚æ­¥æ“ä½œå®Œæˆçš„å‡½æ•°ï¼ˆé’ˆå¯¹æ²¡æœ‰è¿”å›ç»“æœçš„æ“ä½œï¼‰
+# µÈ´ıÒì²½²Ù×÷Íê³ÉµÄº¯Êı£¨Õë¶ÔÃ»ÓĞ·µ»Ø½á¹ûµÄ²Ù×÷£©
 Function AwaitAction($WinRtAction) { 
     $asTask = ([System.WindowsRuntimeSystemExtensions].GetMethods() | ? { $_.Name -eq 'AsTask' -and $_.GetParameters().Count -eq 1 -and !$_.IsGenericMethod })[0] 
     $netTask = $asTask.Invoke($null, @($WinRtAction)) 
     $netTask.Wait(-1) | Out-Null 
 } 
 
-# å¯ç”¨æˆ–ç¦ç”¨ WiFi é€‚é…å™¨çš„å‡½æ•°
+# ÆôÓÃ»ò½ûÓÃ WiFi ÊÊÅäÆ÷µÄº¯Êı
 Function EnableDisableWiFiAdapter($enable) {
     try {
-        $wifiAdapter = Get-NetAdapter | Where-Object { $_.InterfaceDescription -like '*Wireless*' }  # è·å–æ— çº¿ç½‘ç»œé€‚é…å™¨
+        $wifiAdapter = Get-NetAdapter | Where-Object { $_.InterfaceDescription -like '*Wireless*' }  # »ñÈ¡ÎŞÏßÍøÂçÊÊÅäÆ÷
         if ($wifiAdapter) {
             if ($enable) {
-                Enable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # å¯ç”¨é€‚é…å™¨
-                Start-Sleep -Seconds 5  # ç­‰å¾…5ç§’é’Ÿä»¥ç¡®ä¿é€‚é…å™¨å¯ç”¨
+                Enable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # ÆôÓÃÊÊÅäÆ÷
+                Start-Sleep -Seconds 5  # µÈ´ı5ÃëÖÓÒÔÈ·±£ÊÊÅäÆ÷ÆôÓÃ
             } else {
-                Start-Sleep -Seconds 5  # ç­‰å¾…5ç§’é’Ÿä»¥ç¡®ä¿é€‚é…å™¨å·²åœç”¨
-                Disable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # ç¦ç”¨é€‚é…å™¨
+                Start-Sleep -Seconds 5  # µÈ´ı5ÃëÖÓÒÔÈ·±£ÊÊÅäÆ÷ÒÑÍ£ÓÃ
+                Disable-NetAdapter -Name $wifiAdapter.Name -Confirm:$false  # ½ûÓÃÊÊÅäÆ÷
             }
         } else {
-            Write-Host "Wireless adapter not found."  # å¦‚æœæœªæ‰¾åˆ°é€‚é…å™¨åˆ™æ˜¾ç¤ºæ¶ˆæ¯å¹¶é€€å‡º
+            Write-Host "Wireless adapter not found."  # Èç¹ûÎ´ÕÒµ½ÊÊÅäÆ÷ÔòÏÔÊ¾ÏûÏ¢²¢ÍË³ö
             exit
         }
     } catch {
-        Write-Host "An error occurred while trying to enable/disable the wireless adapter: $_"  # å¤„ç†å¼‚å¸¸æƒ…å†µ
+        Write-Host "An error occurred while trying to enable/disable the wireless adapter: $_"  # ´¦ÀíÒì³£Çé¿ö
         exit
     }
 }
 
-# å¯ç”¨æˆ–ç¦ç”¨çƒ­ç‚¹çš„å‡½æ•°
+# ÆôÓÃ»ò½ûÓÃÈÈµãµÄº¯Êı
 Function ManageHotspot($enable) {
     try {
-        $connectionProfile = [Windows.Networking.Connectivity.NetworkInformation,Windows.Networking.Connectivity,ContentType=WindowsRuntime]::GetInternetConnectionProfile()  # è·å–ç½‘ç»œè¿æ¥é…ç½®æ–‡ä»¶
+        $connectionProfile = [Windows.Networking.Connectivity.NetworkInformation,Windows.Networking.Connectivity,ContentType=WindowsRuntime]::GetInternetConnectionProfile()  # »ñÈ¡ÍøÂçÁ¬½ÓÅäÖÃÎÄ¼ş
         if ($connectionProfile -eq $null) {
-            Write-Host "No internet connection profile found. Please check your network connection."  # å¦‚æœæ‰¾ä¸åˆ°è¿æ¥é…ç½®æ–‡ä»¶ï¼Œåˆ™æ˜¾ç¤ºæ¶ˆæ¯å¹¶é€€å‡º
+            Write-Host "No internet connection profile found. Please check your network connection."  # Èç¹ûÕÒ²»µ½Á¬½ÓÅäÖÃÎÄ¼ş£¬ÔòÏÔÊ¾ÏûÏ¢²¢ÍË³ö
             exit
         }
 
-        $tetheringManager = [Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager,Windows.Networking.NetworkOperators,ContentType=WindowsRuntime]::CreateFromConnectionProfile($connectionProfile)  # åˆ›å»ºç½‘ç»œçƒ­ç‚¹ç®¡ç†å™¨
+        $tetheringManager = [Windows.Networking.NetworkOperators.NetworkOperatorTetheringManager,Windows.Networking.NetworkOperators,ContentType=WindowsRuntime]::CreateFromConnectionProfile($connectionProfile)  # ´´½¨ÍøÂçÈÈµã¹ÜÀíÆ÷
 
         if ($enable) { 
-            Await ($tetheringManager.StartTetheringAsync()) ([Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult])  # å¼€å¯çƒ­ç‚¹
-            Write-Host "Network sharing has been enabled."  # æ˜¾ç¤ºæ¶ˆæ¯
+            Await ($tetheringManager.StartTetheringAsync()) ([Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult])  # ¿ªÆôÈÈµã
+            Write-Host "Network sharing has been enabled."  # ÏÔÊ¾ÏûÏ¢
         } else { 
-            Await ($tetheringManager.StopTetheringAsync()) ([Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult])  # å…³é—­çƒ­ç‚¹
-            Write-Host "Network sharing has been disabled."  # æ˜¾ç¤ºæ¶ˆæ¯
-            if (!$NoDisableAdapter) {  # å¦‚æœæœªæŒ‡å®šç¦ç”¨é€‚é…å™¨ï¼Œåˆ™ç¦ç”¨é€‚é…å™¨
+            Await ($tetheringManager.StopTetheringAsync()) ([Windows.Networking.NetworkOperators.NetworkOperatorTetheringOperationResult])  # ¹Ø±ÕÈÈµã
+            Write-Host "Network sharing has been disabled."  # ÏÔÊ¾ÏûÏ¢
+            if (!$NoDisableAdapter) {  # Èç¹ûÎ´Ö¸¶¨½ûÓÃÊÊÅäÆ÷£¬Ôò½ûÓÃÊÊÅäÆ÷
                 EnableDisableWiFiAdapter $false
             }
         }
     } catch {
-        Write-Host "An error occurred: $_"  # å¤„ç†å¼‚å¸¸æƒ…å†µ
+        Write-Host "An error occurred: $_"  # ´¦ÀíÒì³£Çé¿ö
     }
 }
 
-# è§£æå‘½ä»¤è¡Œå‚æ•°å¹¶æ‰§è¡Œç›¸åº”æ“ä½œ
+# ½âÎöÃüÁîĞĞ²ÎÊı²¢Ö´ĞĞÏàÓ¦²Ù×÷
 if ($EnableAdapter) {
     EnableDisableWiFiAdapter $true
 }
@@ -94,7 +94,7 @@ elseif ($DisableHotspot) {
     ManageHotspot $false
 }
 else {
-    # å¦‚æœæ²¡æœ‰ç»™å‡ºç›´æ¥çš„å‘½ä»¤ï¼Œåˆ™æ ¹æ®å½“å‰çŠ¶æ€æ‰§è¡Œé»˜è®¤æ“ä½œ
+    # Èç¹ûÃ»ÓĞ¸ø³öÖ±½ÓµÄÃüÁî£¬Ôò¸ù¾İµ±Ç°×´Ì¬Ö´ĞĞÄ¬ÈÏ²Ù×÷
     try {
         EnableDisableWiFiAdapter $true
         $connectionProfile = [Windows.Networking.Connectivity.NetworkInformation,Windows.Networking.Connectivity,ContentType=WindowsRuntime]::GetInternetConnectionProfile()
