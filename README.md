@@ -12,12 +12,12 @@ index.html和index_zh.html是用apache2 default page改的，增加了中英文�
 ### tools/pondsihotspot.ps1
 一个可以开启/关闭电脑 WiFi 热点的 PowerShell 脚本
 需要以管理员权限运行
-参数示例：
- `-EnableHotspot`: 开启WiFi热点。
- `-DisableHotspot`: 关闭WiFi热点。
- `-EnableAdapter`: 启用无线网络适配器。
- `-DisableAdapter`: 禁用无线网络适配器。
- `-NoAdministratorRequired`: 忽略管理员权限检测运行脚本。
- `-help`: 获取帮助
+__参数示例：__
+_`-EnableHotspot`: 开启WiFi热点。_
+_`-DisableHotspot`: 关闭WiFi热点。_
+_`-EnableAdapter`: 启用无线网络适配器。_
+_`-DisableAdapter`: 禁用无线网络适配器。_
+_`-NoAdministratorRequired`: 忽略管理员权限检测运行脚本。_
+_`-help`: 获取帮助_
 
 ~~（我完全没学过编程，这些页面能正常工作就很不错了）~~
