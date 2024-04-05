@@ -19,5 +19,6 @@ index.html和index_zh.html是用apache2 default page改的，增加了中英文�
  -DisableAdapter: 禁用无线网络适配器。
  -NoAdministratorRequired: 忽略管理员权限检测运行脚本。
  -help: 获取帮助
+ 如果无输入参数则自动开/关热点
 
 ~~（我完全没学过编程，这些页面能正常工作就很不错了）~~
