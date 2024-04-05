@@ -70,7 +70,7 @@ $IsAdmin = $WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInR
 if (!$IsAdmin) {
     Write-Host "The script requires administrator privileges to run"
     if (!$NoAdministratorRequired -or $args -contains "-NAR") {
-        exit
+        Exit
     }
 }
 
