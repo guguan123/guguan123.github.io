@@ -57,7 +57,7 @@ if ($Help -or $args -contains "-?") {
     Write-Host "$scriptFileName -Help | -?"
     Write-Host ""
     Write-Host "If no input parameters are provided, it automatically toggles the hotspot."
-    exit
+    Return
 }
 # 如果没有帮助开关，则执行脚本的其他逻辑
 
@@ -70,7 +70,7 @@ $IsAdmin = $WindowsPrincipal.IsInRole([System.Security.Principal.WindowsBuiltInR
 if (!$IsAdmin) {
     Write-Host "The script requires administrator privileges to run"
     if (!$NoAdministratorRequired -or $args -contains "-NAR") {
-        Exit
+        Return
     }
 }
 
