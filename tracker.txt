@@ -1,10 +1,13 @@
 udp://tracker.openbittorrent.com:6969
 
 udp://tracker.opentrackr.org:1337/announce
+# from "https://opentrackr.org/"
 
 https://t1.hloli.org/announce
+# from "https://t1.hloli.org/"
 
 udp://tracker.torrent.eu.org:451
+# from "https://torrent.eu.org/"
 
 udp://open.stealth.si:80/announce
 
@@ -13,16 +16,20 @@ http://open.acgtracker.com:1096/announce
 #udp://tracker.leech.ie:1337/announce
 
 udp://explodie.org:6969
+# from "https://explodie.org/opentracker.html"
 
 udp://tracker.moeking.me:6969/announce
+# from "https://moeking.me/tracker/"
 
 http://tracker.mywaifu.best:6969/announce
 
 udp://tracker.0x7c0.com:6969/announce
 
 udp://open.demonii.com:1337
+# from "https://demonii.com/"
 
 udp://tracker.cyberia.is:6969/announce
+# from "https://www.cyberia.is/tracker.html"
 
 https://tracker.renfei.net:443/announce
 
@@ -34,12 +41,27 @@ http://fosstorrents.com:6969/announce
 
 https://opentracker.i2p.rocks:443/announce
 
-http://tracker.dler.org:6969/announce
+http://tracker.dler.com:6969/announce
+# from "https://dler.com/tracker.html"
 
 https://tracker.gbitt.info/announce
+# from "https://www.gbitt.info/"
 
 http://tracker.ipv6tracker.ru/announce
 
 http://tracker.mywaifu.best:6969/announce
 
 https://tracker.lilithraws.org/announce
+
+udp://open.tracker.cl:1337/announce
+# from "https://tracker.cl/"
+
+udp://tracker.auctor.tv:6969/announce
+
+udp://opentracker.i2p.rocks:6969/announce
+
+udp://exodus.desync.com:6969
+# from "https://desync.com/tracker"
+
+
+udp://tracker1.bt.moack.co.kr:80/announce
