@@ -168,7 +168,7 @@ if ($CheckHotspotStatus) {  # 该功能未完善！
     $tetheringConfiguration = $tetheringManager.GetCurrentTetheringConfiguration()
     $ssid = $tetheringConfiguration.SSID
     $passphrase = "Not accessible through API" # Windows API does not expose the hotspot password for security reasons
-    Write-Host "Hotspot Status: $($tetheringOperationalState), SSID: $($ssid, Password: $passphrase)"
+    Write-Host "Hotspot Status: $($tetheringOperationalState), SSID: $($ssid), Password: $($passphrase)"
     exit
 }
 elseif ($EnableAdapter) {
