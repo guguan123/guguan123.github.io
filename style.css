@@ -43,6 +43,9 @@ div.page_header img {
 	margin:3px 0px 0px 40px;
 	border:0px 0px 0px;
 }
+.dark-mode {
+	display: none;
+}
 div.banner {
 	padding:9px 6px 9px 6px;
 	background-color:#E9510E;
@@ -148,6 +151,12 @@ div.content_section_text a:hover {
 	}
 	div.page_header {
 		background-color:#08090A;
+	}
+	.dark-mode {
+		display: block; /* 在黑暗模式下显示 */
+	}
+	.light-mode {
+		display: none; /* 在白天模式下隐藏 */
 	}
 	span {
 		/*color: white;*/
