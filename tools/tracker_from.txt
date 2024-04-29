@@ -12,8 +12,10 @@ udp://tracker.torrent.eu.org:451
 # from "https://torrent.eu.org/"
 
 udp://open.stealth.si:80/announce
+# from "https://stealth.si/"
 
 http://open.acgtracker.com:1096/announce
+# from "https://acgtracker.com/"
 
 #udp://tracker.leech.ie:1337/announce
 
@@ -24,8 +26,10 @@ udp://tracker.moeking.me:6969/announce
 # from "https://moeking.me/tracker/"
 
 http://tracker.mywaifu.best:6969/announce
+# from "https://tracker.mywaifu.best/"
 
 udp://tracker.0x7c0.com:6969/announce
+# from "https://tracker.0x7c0.com/"
 
 udp://open.demonii.com:1337
 # from "https://demonii.com/"
@@ -34,12 +38,14 @@ udp://tracker.cyberia.is:6969/announce
 # from "https://www.cyberia.is/tracker.html"
 
 https://tracker.renfei.net:443/announce
+# from "https://www.renfei.net/kitbox/tracker"
 
 udp://tracker.tryhackx.org:6969/announce
 
 https://tracker.tamersunion.org/announce
 
 http://fosstorrents.com:6969/announce
+# from "https://fosstorrents.com/tracker/"
 
 https://opentracker.i2p.rocks:443/announce
 
