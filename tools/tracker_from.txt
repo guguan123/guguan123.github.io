@@ -17,8 +17,6 @@ udp://open.stealth.si:80/announce
 http://open.acgtracker.com:1096/announce
 # from "https://acgtracker.com/"
 
-#udp://tracker.leech.ie:1337/announce
-
 udp://explodie.org:6969
 # from "https://explodie.org/opentracker.html"
 
@@ -71,5 +69,25 @@ udp://opentracker.i2p.rocks:6969/announce
 udp://exodus.desync.com:6969
 # from "https://desync.com/tracker"
 
+udp://open.xxtor.com:3074/announce
+# from "http://xxtor.com/"
+
+tcp://opentracker.io:6969/announce
+# from "https://opentracker.io/"
+
+https://tracker.yemekyedim.com/announce
+# from "https://tracker.yemekyedim.com/"
+
+tcp://martin-gebhardt.eu:6969/announce
+# from "https://martin-gebhardt.eu/"
+
 
 udp://tracker1.bt.moack.co.kr:80/announce
+https://tracker.gcrreen.xyz:443/announce
+https://tracker.loligirl.cn:443/announce
+
+
+#https://open.acgnxtracker.com/announce
+# from "https://www.acgnxtracker.com/"
+
+#udp://tracker.leech.ie:1337/announce
