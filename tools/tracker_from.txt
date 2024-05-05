@@ -82,7 +82,7 @@ tcp://martin-gebhardt.eu:6969/announce
 # from "https://martin-gebhardt.eu/"
 
 http://tracker.guguan.000.pe/announce/
-# from "https://guguan.000.pe/2024/05/05/%e8%83%a1%e4%b9%b1%e6%90%ad%e5%bb%ba%e7%9a%84%e4%b8%80%e4%b8%aabittorrent-tracker/"
+# from "https://guguan.000.pe/2024/05/05/bittorrent-tracker/"
 
 
 udp://tracker1.bt.moack.co.kr:80/announce
