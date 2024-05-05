@@ -65,3 +65,5 @@ udp://tracker1.bt.moack.co.kr:80/announce
 https://tracker.gcrreen.xyz:443/announce
 
 https://tracker.loligirl.cn:443/announce
+
+http://tracker.guguan.000.pe/announce/
