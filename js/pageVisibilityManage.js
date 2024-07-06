@@ -32,11 +32,14 @@ var visibilityConfig = {
     }
 };
 
-function CompareURL() {
-    let result = visibilityConfig.hostName.find(function(item) { //得到返回值
-        return item.host === window.location.hostname;
-    });
-    return result;
+function compareURL() {
+    let result = visibilityConfig.hostName.find(item => item.host === window.location.hostname);
+    if (result) {
+        return result.type;
+    } else {
+        // 处理未找到匹配的情况，比如返回一个默认值或者抛出错误
+        return null; // 或者根据实际需求返回适当的值
+    }
 }
 
 function switchPageType(urlType) {
@@ -77,7 +80,7 @@ function ChangeURL() {
 
 // 当文档加载完成时，执行回调函数
 document.addEventListener("DOMContentLoaded", () => {
-    var URLType = CompareURL();
+    var URLType = compareURL();
     console.log("访问方式检测返回值为：" + URLType);
     switchPageType(URLType); // 隐藏或显示相应的元素
 
