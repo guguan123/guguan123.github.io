@@ -32,27 +32,9 @@ var visibilityConfig = {
     }
 };
 
-function getAddress(url) {
-    var url = window.location.href;
-    //定义一个正则表达式，匹配网页地址的最后一部分
-    var regex = /\/[^\/]*$/;
-    //用空字符串替换掉最后一部分
-    url = url.replace(regex, "");
-    var lang = document.documentElement.lang.toLowerCase();
-    if (lang === 'zh-cn') {
-        console.log('开始获取URL，当前URL为：' + url);
-    } else {
-        console.log('Current URL:' + url);
-    }
-    return url;
-}
 function CompareURL() {
-    let PossibleURL = getAddress(url); // 变量PossibleURL
-    console.log('准备开始检测网络连接方式');
-    PossibleURL = PossibleURL.replace(/https?:\/\//, ""); // 把匹配到http://或者https://的子字符串替换为空字符串
-    PossibleURL = PossibleURL.replace(/\/[^\/]*$/, ""); // 去掉“/”后面的内容
     let result = visibilityConfig.hostName.find(function(item) { //得到返回值
-        return item.host === PossibleURL;
+        return item.host === window.location.hostname;
     });
     return result;
 }
