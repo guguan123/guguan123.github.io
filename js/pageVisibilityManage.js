@@ -38,7 +38,7 @@ function compareURL() {
         return result.type;
     } else {
         // 处理未找到匹配的情况，比如返回一个默认值或者抛出错误
-        return null; // 或者根据实际需求返回适当的值
+        return 2; // 或者根据实际需求返回2
     }
 }
 
