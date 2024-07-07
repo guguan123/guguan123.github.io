@@ -82,6 +82,9 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("访问方式检测返回值为：" + URLType);
     switchPageType(URLType); // 隐藏或显示相应的元素
 
+    if (URLType === 0) {
+        ChangeURL();
+    }
 
     // 获取当前页面的协议
     let currentProtocol = window.location.protocol;
