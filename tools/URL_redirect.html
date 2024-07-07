@@ -12,18 +12,19 @@
     <![endif]-->
 
     <script type="text/javascript">
-        var language;
-
         function addEventListener() { // 检查语言设置
-            var cname=getLangCookie("lang");
+            let cname=getLangCookie("lang");
+            let language;
             if (cname!="") {
+                console.log("Cookie: " + cname);
                 language = cname.toLowerCase();
             }
             else 
             {
                 if (typeof(Storage)!=="undefined") {
-                    var lname = localStorage.getItem("lang");
+                    let lname = localStorage.getItem("lang");
                     if (lname!=null) {
+                        console.log("LocalStorage: " + lname);
                         language = lname.toLowerCase();
                     } else {
                         language = (navigator.language || navigator.userLanguage).toLowerCase();
@@ -32,15 +33,15 @@
                     language = (navigator.language || navigator.userLanguage).toLowerCase();
                 }
             }
-            Change_Text();
+            Change_Text(language);
         }
 
         function getLangCookie(lang) {
-            var name = lang + "=";
-            var ca = document.cookie.split(';');
-            for(var i=0; i<ca.length; i++) 
+            let name = lang + "=";
+            let ca = document.cookie.split(';');
+            for(let i=0; i<ca.length; i++) 
             {
-                var c = ca[i].trim();
+                let c = ca[i].trim();
                 if (c.indexOf(name)==0) return c.substring(name.length,c.length);
             }
             return "";
@@ -86,7 +87,8 @@
     </div>
 
     <script type="text/javascript">
-        function Change_Text() {
+        function Change_Text(language) {
+            console.log("Language: " + language)
             if (language!="zh-cn") { //根据language变量修改页面内容的语言
                 document.documentElement.setAttribute("lang", "en");
             } else {
@@ -99,15 +101,16 @@
         }
 
         function addPrefix() {
-            var url = document.getElementById("myURL").value;
+            let url = document.getElementById("myURL").value;
             if (!url) {
-                if (language!="zh-cn") {
-                    console.error("The URL cannot be null!");
+                let lang = document.documentElement.lang.toLowerCase();
+                if (lang!="zh-cn") {
+                    console.warn("The URL cannot be null!");
                 } else {
-                    console.error("网址不能为空！");
+                    console.warn("网址不能为空！");
                 }
             } else {
-                var regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+                let regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
                 if (!regex.test(url)) {
                     url = 'http://' + url; // 如果没有将在链接前面添加“http://”
                 }

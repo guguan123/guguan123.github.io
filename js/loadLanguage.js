@@ -3,7 +3,7 @@ function checkLanguage() {
     let cname=getLangCookie("lang");
     let languageSet;
     if (cname!="") {  // 通过检测变量 cname 是否为 "" 来检测cookie是否存在
-        console.log("Cookie: " + cname)
+        console.log("Cookie: " + cname);
         // cookie存在，设置变量 languageSet 为变量 cname
         languageSet = cname;
     } else {
@@ -12,12 +12,15 @@ function checkLanguage() {
             // 支持 localStorage  sessionStorage 对象，读取localStorage
             let lname = localStorage.getItem("lang");
             if (lname!=null) {
-                console.log("LocalStorage: " + lname)
+                console.log("LocalStorage: " + lname);
                 languageSet = lname;
             } else {
                 // 获取用户的首选语言
                 languageSet = navigator.language || navigator.userLanguage;
             }
+        } else { // 如果不支持 localStorage
+            // 获取用户的首选语言
+            languageSet = navigator.language || navigator.userLanguage;
         }
     }
 
