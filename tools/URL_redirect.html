@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
-    <title id="Title">URL redirect</title>
+    <title>URL redirect</title>
     <link rel="icon" href="./images/URL_redirect.svg" type="image/svg+xml">
     <link rel="shortcut icon" href="./images/URL_redirect.svg" type="image/svg+xml">
 
@@ -92,7 +92,7 @@
             if (language!="zh-cn") { //根据language变量修改页面内容的语言
                 document.documentElement.setAttribute("lang", "en");
             } else {
-                document.getElementById('Title').innerHTML = '网址重定向';
+                document.title = '网址重定向';
                 document.getElementById('Label').innerHTML = '网址：';
                 document.getElementById('Button').innerHTML = '前往';
                 document.getElementById("Button").setAttribute("title", "重定向至此网址");
