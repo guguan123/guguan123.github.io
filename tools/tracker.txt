@@ -66,4 +66,4 @@ https://tracker.gcrreen.xyz:443/announce
 
 https://tracker.loligirl.cn:443/announce
 
-http://tracker.guguan.000.pe/announce/
+https://tracker.guguan.us.kg/announce

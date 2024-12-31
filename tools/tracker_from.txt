@@ -81,8 +81,8 @@ https://tracker.yemekyedim.com/announce
 tcp://martin-gebhardt.eu:6969/announce
 # from "https://martin-gebhardt.eu/"
 
-http://tracker.guguan.000.pe/announce/
-# from "https://guguan.000.pe/2024/05/05/bittorrent-tracker/"
+https://tracker.guguan.us.kg/announce
+# from "https://blog.guguan.us.kg/2024/05/05/bittorrent-tracker/"
 
 
 udp://tracker1.bt.moack.co.kr:80/announce

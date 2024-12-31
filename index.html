@@ -1,247 +1,56 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
-  <!--
-    Modified from the Debian original for Ubuntu
-    Last updated: 2022-06-19
-    See: https://launchpad.net/bugs/1966004
-  -->
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes" />
-    <title>Apache2 Ubuntu Default Page: It works</title>
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcdn.net/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-    <![endif]-->
-    <script type="text/javascript" src="./js/loadLanguage.js"></script>
-    <!--从Microsoft CDN获取jQuery-->
-    <!--<script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.7.0.js"></script>-->
-    <link rel="stylesheet" href="style.css"/>
-    <link rel="icon" href="https://httpd.apache.org/favicon.ico">
-  </head>
-  <body>
-    <noscript>
-      <h1>JavaScript Required! You must enable JavaScript for the Web to work properly</h1>
-    </noscript>
-    <div class="main_page">
-      <div class="page_header floating_element">
-        <button class="SwitchLanguage" type="button" title="切换为中文页面" lang="zh-cn">中文</button>
-        <img src="https://s1.imagehub.cc/images/2024/01/31/aef1e6a1c2984515c15cb4da1cad387e.png" alt="Ubuntu Logo"
-             style="width:184px;height:146px;" class="floating_element light-mode" id="logo" />
-        <img src="https://s1.imagehub.cc/images/2024/01/31/149673b807a9460f17a5c8801097b1df.png" alt="Ubuntu Logo"
-             style="width:184px;height:146px;" class="floating_element dark-mode" id="logo" />
-        <div>
-          <span style="margin-top: 1.5em;" class="floating_element">
-            Apache2 Default Page
-          </span>
-        </div>
-        <div class="banner">
-          <div id="about"></div>
-          It works!
-        </div>
-
-      </div>
-      <div class="content_section floating_element">
-        <div class="content_section_text">
-          <p>
-                This is the default welcome page used to test the correct 
-                operation of the Apache2 server after installation on Ubuntu systems.
-                It is based on the equivalent page on Debian, from which the Ubuntu Apache
-                packaging is derived.
-                If you can read this page, it means that the Apache HTTP server installed at
-                this site is working properly. You should <b>replace this file</b> (located at
-                <tt>/var/www/html/index.html</tt>) before continuing to operate your HTTP server.
-          </p>
-
-          <p>
-                If you are a normal user of this web site and don't know what this page is
-                about, this probably means that the site is currently unavailable due to
-                maintenance.
-                If the problem persists, please contact the site's administrator.
-          </p>
-
-        </div>
-        <div class="section_header">
-          <div id="changes"></div>
-                Configuration Overview
-        </div>
-        <div class="content_section_text">
-          <p>
-                Ubuntu's Apache2 default configuration is different from the
-                upstream default configuration, and split into several files optimized for
-                interaction with Ubuntu tools. The configuration system is
-                <b>fully documented in
-                /usr/share/doc/apache2/README.Debian.gz</b>. Refer to this for the full
-                documentation. Documentation for the web server itself can be
-                found by accessing the <a href="/manual">manual</a> if the <tt>apache2-doc</tt>
-                package was installed on this server.
-          </p>
-          <p>
-                The configuration layout for an Apache2 web server installation on Ubuntu systems is as follows:
-          </p>
-          <pre>
-/etc/apache2/
-|-- apache2.conf
-|       `--  ports.conf
-|-- mods-enabled
-|       |-- *.load
-|       `-- *.conf
-|-- conf-enabled
-|       `-- *.conf
-|-- sites-enabled
-|       `-- *.conf
-          </pre>
-          <ul>
-                        <li>
-                           <tt>apache2.conf</tt> is the main configuration
-                           file. It puts the pieces together by including all remaining configuration
-                           files when starting up the web server.
-                        </li>
-
-                        <li>
-                           <tt>ports.conf</tt> is always included from the
-                           main configuration file. It is used to determine the listening ports for
-                           incoming connections, and this file can be customized anytime.
-                        </li>
-
-                        <li>
-                           Configuration files in the <tt>mods-enabled/</tt>,
-                           <tt>conf-enabled/</tt> and <tt>sites-enabled/</tt> directories contain
-                           particular configuration snippets which manage modules, global configuration
-                           fragments, or virtual host configurations, respectively.
-                        </li>
-
-                        <li>
-                           They are activated by symlinking available
-                           configuration files from their respective
-                           *-available/ counterparts. These should be managed
-                           by using our helpers
-                           <tt>
-                                a2enmod,
-                                a2dismod,
-                           </tt>
-                           <tt>
-                                a2ensite,
-                                a2dissite,
-                            </tt>
-                                and
-                           <tt>
-                                a2enconf,
-                                a2disconf
-                           </tt>. See their respective man pages for detailed information.
-                        </li>
-
-                        <li>
-                           The binary is called apache2 and is managed using systemd, so to
-                           start/stop the service use <tt>systemctl start apache2</tt> and
-                           <tt>systemctl stop apache2</tt>, and use <tt>systemctl status apache2</tt>
-                           and <tt>journalctl -u apache2</tt> to check status.  <tt>system</tt>
-                           and <tt>apache2ctl</tt> can also be used for service management if
-                           desired.
-                           <b>Calling <tt>/usr/bin/apache2</tt> directly will not work</b> with the
-                           default configuration.
-                        </li>
-          </ul>
-        </div>
-
-        <div class="section_header">
-            <div id="docroot"></div>
-                Document Roots
-        </div>
-
-        <div class="content_section_text">
-            <p>
-                By default, Ubuntu does not allow access through the web browser to
-                <em>any</em> file outside of those located in <tt>/var/www</tt>,
-                <a href="http://httpd.apache.org/docs/2.4/mod/mod_userdir.html" rel="nofollow">public_html</a>
-                directories (when enabled) and <tt>/usr/share</tt> (for web
-                applications). If your site is using a web document root
-                located elsewhere (such as in <tt>/srv</tt>) you may need to whitelist your
-                document root directory in <tt>/etc/apache2/apache2.conf</tt>.
-            </p>
-            <p>
-                The default Ubuntu document root is <tt>/var/www/html</tt>. You
-                can make your own virtual hosts under /var/www.
-            </p>
-        </div>
-
-        <div class="section_header">
-          <div id="bugs"></div>
-                Reporting Problems
-        </div>
-        <div class="content_section_text">
-          <p>
-                Please use the <tt>ubuntu-bug</tt> tool to report bugs in the
-                Apache2 package with Ubuntu. However, check <a
-                href="https://bugs.launchpad.net/ubuntu/+source/apache2"
-                rel="nofollow">existing bug reports</a> before reporting a new bug.
-          </p>
-          <p>
-                Please report bugs specific to modules (such as PHP and others)
-                to their respective packages, not to the web server itself.
-          </p>
-        </div>
-        <div class="section_header">
-            <div id="others"></div>
-            Others
-        </div>
-        <div class="content_section_text">
-          <div id="other_content_section_text_a" style="display:none">
-            <p>
-              <a href="./tools/URL_redirect.html">URL redirect</a>
-              <a href="//host:23333" class="custom-link">MCSManager Panel</a>
-              <a href="./qbt/" class="custom-link">qBittorrent Web UI</a>
-              <a href="//host:5244" class="custom-link">Alist</a>
-              <a href="//host:8084" class="custom-link">Router Web</a>
-              <a href="//host:8085" class="custom-link">ASUS Download Master</a>
-              <a href="./iis/">Windows Server</a>
-            </p>
-            <p>
-              <a href="https://guguan30.top">Websites proxy by FRP</a>
-              <a href="http://guguan.viphost.vip" class="change-protocol">Blog</a>
-              <a href="http://guguan123.github.io" class="change-protocol">Pages hosted by Github</a>
-              <a href="http://www.i-i.me/507.html" class="change-protocol">Third party HomePage</a>
-              <a href="http://guguan123.ysepan.com">YongShuo network disk</a>
-              <a href="http://tracker.guguan.000.pe" class="change-protocol">BitTorrent Tracker</a>
-            </p>
-          </div>
-          <div id="other_content_section_text_b" style="display:none">
-            <p>
-              <a href="./tools/URL_redirect.html">URL redirect</a>
-              <a href="/mcsm/">MCSManager Panel</a>
-              <a href="./qbt/">qBittorrent Web UI</a>
-              <a href="http://kr-nc-bgp-1.openfrp.top:52440/">Alist</a>
-              <a href="http://frp-fly.top:58371/">ASUS Download Master</a>
-              <a href="./iis/">Windows Server</a>
-            </p>
-            <p>
-              <a href="http://guguan.viphost.vip" class="change-protocol">Blog</a>
-              <a href="http://guguan123.github.io" class="change-protocol">Pages hosted by Github</a>
-              <a href="http://www.i-i.me/507.html" class="change-protocol">Third party HomePage</a>
-              <a href="http://guguan123.ysepan.com">YongShuo network disk</a>
-              <a href="http://tracker.guguan.000.pe" class="change-protocol">BitTorrent Tracker</a>
-            </p>
-          </div>
-          <div id="other_content_section_text_c" style="display:none">
-            <p>
-              <a href="./tools/URL_redirect.html">URL redirect</a>
-              <a href="http://kr-nc-bgp-1.openfrp.top:52440/">Alist</a>
-              <a href="http://frp-fly.top:58371/">ASUS Download Master</a>
-            </p>
-            <p>
-              <a href="https://guguan30.top">Websites proxy by FRP</a>
-              <a href="http://guguan.viphost.vip/" class="change-protocol">Blog</a>
-              <a href="http://guguan123.github.io" class="change-protocol">Pages hosted by Github</a>
-              <a href="http://www.i-i.me/507.html" class="change-protocol">Third party HomePage</a>
-              <a href="http://guguan123.ysepan.com">YongShuo network disk</a>
-              <a href="http://tracker.guguan.000.pe" class="change-protocol">BitTorrent Tracker</a>
-            </p>
-          </div>
-          <a href="http://wapmz.com/in/51" class="wapmz change-protocol"><img src="https://wapmz.com/cn/big/51" alt="wapmz.com"></a>
-        </div>
-      </div>
-    </div>
-    <div class="validator">
-    </div>
-    <script type="text/javascript" src="./js/pageVisibilityManage.js"></script>
-  </body>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Welcome to GuGuan123's personal website, featuring links to Github, blog, tracker, and more.">
+	<meta property="og:title" content="GuGuan123's Website">
+	<meta property="og:description" content="Visit my personal site to explore my projects and blog.">
+	<meta property="og:url" content="https://example.com">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://example.com/preview-image.jpg">
+	<title>GuGuan123's Website</title>
+	<link rel="icon" href="https://example.com/favicon.ico" type="image/x-icon">
+	<style type="text/css">
+		/* 用于暗色模式的样式 */
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: black; /* 黑色背景 */
+				color: rgba(255, 255, 255, 0.87); /* 设置文字透明度 */
+				font-family: Arial, sans-serif;
+				line-height: 1.6;
+			}
+			a {
+				color: #82c7ff; /* 正常链接颜色 */
+				text-decoration: none; /* 默认去掉下划线 */
+			}
+			a:hover {
+				color: #c0e7ff; /* 悬停时更亮的颜色 */
+				text-decoration: underline; /* 添加下划线 */
+			}
+			a:active {
+				color: #1976D2; /* 点击时的颜色 */
+				text-decoration: none;
+			}
+			a:visited {
+				color: #b3b8ff; /* 已访问链接颜色 */
+			}
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<h1>GuGuan123's Website</h1>
+	</header>
+	<main>
+		<p>Welcome to my website!</p>
+		<p>Visit my <a href="https://github.com/guguan123" title="Visit my Github Pages">Github Pages</a>.</p>
+		<p>Explore my <a href="https://blog.guguan.us.kg" title="Visit my Blog">Blog</a>.</p>
+		<p>Check out my <a href="https://tracker.guguan.us.kg" title="My BitTorrent Tracker">BitTorrent Tracker</a>.</p>
+		<p>Discover <a href="https://dcms.myredirect.us" title="Visit DCMS Dev">DCMS Dev</a>.</p>
+	</main>
+	<footer>
+		<p>© 2024 GuGuan123. All rights reserved.</p>
+	</footer>
+</body>
 </html>
