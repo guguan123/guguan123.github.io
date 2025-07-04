@@ -1,0 +1,35 @@
+/* 用于暗色模式的样式 */
+@media (prefers-color-scheme: dark) {
+	body {
+		background-color: black; /* 黑色背景 */
+		color: rgba(255, 255, 255, 0.87); /* 设置文字透明度 */
+	}
+
+	/* 链接 */
+	a:link {
+		color: #4A90E2; /* 未访问链接 */
+	}
+	a:visited {
+		color: #7A6FBF; /* 已访问链接 */
+	}
+	a:hover {
+		color: #66B3FF; /* 悬停时 */
+	}
+	a:active {
+		color: #357ABD; /* 激活时 */
+	}
+
+	/* 输入框 */
+	input[type="text"] {
+		background-color: #333333;
+		border-color: #555555;
+		color: #E0E0E0;
+	}
+	input[type="text"]::placeholder {
+		color: #A0A0A0;
+	}
+	input[type="text"]:focus {
+		border-color: #4A90E2;
+		box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+	}
+}
