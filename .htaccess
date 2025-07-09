@@ -1,6 +1,6 @@
 # 设置Expires头
 <IfModule mod_expires.c>
-	<FilesMatch "\.(html)$">
+	<FilesMatch "\.(html|css|md|pub|txt)$">
 		ExpiresActive On
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
