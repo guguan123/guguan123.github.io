@@ -198,133 +198,6 @@
         }
     </style>
 
-    <script>
-        // 设置全局变量
-        var examDate = new Date("2024-06-07 09:00"); // 设置倒计时截止日期
-        var examTime = examDate.getTime(); // 获取高考日期时间戳
-        let AccessTimeReturnVar = 0; // 函数返回变量（如果变量为1就使用浏览器时间计算倒计时，如果变量为2就使用在线时间计算倒计时）
-        let threshold = 30 * 1000; // 定义阈值为30秒（如果浏览器时间与在线时间的差别大于阈值，就将变量“AccessTimeReturnVar”设为2）
-        var TimeVar = 0;
-        var onlineTime;
-        var currentTime;
-        // 设置在线时间的URL
-        if (window.location.protocol === "https:") {
-            // 如果当前页面使用 HTTPS 协议
-            console.log("当前页面使用 HTTPS 协议");
-            var url = "https://worldtimeapi.org/api/timezone/Asia/Shanghai"; // 将请求在线时间的URL设为https协议，避免浏览器的安全警告
-        } else {
-            // 如果当前页面不使用 HTTPS 协议
-            console.log("当前页面不使用 HTTPS 协议");
-            var url = "http://worldtimeapi.org/api/timezone/Asia/Shanghai";
-        }
-        
-        function getCurrentTime() { // 获取当前时间
-            if (TimeVar >= 30) { // 每隔30秒对较一遍在线时间
-                TimeVar = 0;
-                updateData();
-            }
-            console.log("在线时间较对返回值为：" + AccessTimeReturnVar);
-
-            if (AccessTimeReturnVar == 2) { // 如果需要在线时间进行计时
-                onlineTime = onlineTime + 1000;
-                currentTime = onlineTime;
-            } else {
-                currentTime = new Date();
-                currentTime = currentTime.getTime();
-            }
-
-            TimeVar++;
-            console.log("当前时间为：" + new Date(currentTime).toLocaleString());
-            return currentTime; // 返回时间戳（单位：毫秒）
-        }
-
-        // 计算倒计时时间差
-        function calculateCountdown() {
-            var currentTime = getCurrentTime();
-            var timeDifference = (examTime - currentTime) / 1000; // 计算时间差（单位：秒）
-            console.log("当前时间戳：" + currentTime);
-            var days = Math.floor(timeDifference / (24 * 60 * 60));
-            var hours = Math.floor((timeDifference % (24 * 60 * 60)) / (60 * 60));
-            var minutes = Math.floor((timeDifference % (60 * 60)) / 60);
-            var seconds = Math.floor(timeDifference % 60);
-            console.log("倒计时的时间差：" + timeDifference);
-
-            if (timeDifference > 0) {
-                // 更新倒计时显示
-                document.getElementById("countdown").innerHTML = days + "天" + hours + "小时" + minutes + "分钟" + seconds + "秒";
-            } else {
-                // 修改元素的文本内容
-                document.getElementById("countdownText").innerText = "倒计时结束";
-            }
-        }
-
-        function AccessTime(callback) {
-            return new Promise((resolve, reject) => {
-                // 创建一个XMLHttpRequest对象
-                let xhr = new XMLHttpRequest();
-
-                // 设置请求的方法和异步模式
-                xhr.open("GET", url, true);
-
-                // 使用onreadystatechange事件处理函数
-                xhr.onreadystatechange = function () {
-                    // 如果请求完成并成功
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        // 解析响应中的JSON数据
-                        let data = JSON.parse(xhr.responseText);
-
-                        // 获取在线时间的时间戳（毫秒）
-                        onlineTime = new Date(data.datetime).getTime();
-                        console.log("在线时间戳为（毫秒）：" + onlineTime);
-
-                        // 获取本地时间的时间戳（毫秒）
-                        let localTime = new Date().getTime();
-                        console.log("本地时间戳为（毫秒）：" + localTime);
-
-                        // 计算时间差（毫秒）
-                        let timeDiff = Math.abs(onlineTime - localTime);
-                        console.log("本地于在线的时间差为（毫秒）：" + timeDiff);
-
-                        // 如果时间差小于阈值，就使用本地时间
-                        if (timeDiff < threshold) {
-                            AccessTimeReturnVar = 1;
-                        }
-                        // 如果时间差大于阈值，就使用在线时间
-                        else {
-                            AccessTimeReturnVar = 2;
-                        }
-
-                        resolve(); // 异步操作完成，调用resolve()
-                    } else if (xhr.readyState == 4 && xhr.status != 200) {
-                        AccessTimeReturnVar = 0;
-                        reject(); // 异步操作失败，调用reject()
-                    }
-                };
-
-                // 发送请求
-                xhr.send();
-            });
-        };
-
-        function updateData() {
-            AccessTime().then(() => {
-                if (AccessTimeReturnVar == 1) {
-                    console.log("对较在线时间完成，将使用本地时间");
-                } else if (AccessTimeReturnVar == 2) {
-                    console.log("对较在线时间完成，将使用在线时间");
-                } else if (AccessTimeReturnVar == 0) {
-                    console.error("请求在线时间失败");
-                }
-                
-            });
-        };
-
-        // 打开网页时先和在线时间对较一次
-        updateData();
-
-        // 自动更新倒计时
-        setInterval(calculateCountdown, 1000);
-    </script>
     <!-- Clarity tracking code for https://guguan.us.kg/ -->
 	<script>
 		(function(c,l,a,r,i,t,y){
@@ -353,5 +226,78 @@
             </div>
         </div>
     </div>
+    <script>
+        const examDate = new Date("2024-06-07 09:00");
+        const examTime = examDate.getTime();
+        const threshold = 30 * 1000; // 30秒
+        const url = location.protocol === "https:" 
+            ? "https://worldtimeapi.org/api/timezone/Asia/Shanghai"
+            : "http://worldtimeapi.org/api/timezone/Asia/Shanghai";
+
+        const countdownEl = document.getElementById("countdown");
+        const countdownTextEl = document.getElementById("countdownText");
+
+        let useOnlineTime = false;
+        let onlineTime = null;
+        let tickCount = 0;
+
+        async function fetchOnlineTime() {
+            try {
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("网络请求失败");
+                const data = await res.json();
+                return new Date(data.datetime).getTime();
+            } catch {
+                return null;
+            }
+        }
+
+        async function calibrateTime() {
+            const online = await fetchOnlineTime();
+            if (online) {
+                const local = Date.now();
+                useOnlineTime = Math.abs(online - local) > threshold;
+                onlineTime = online;
+            } else {
+                useOnlineTime = false;
+                onlineTime = null;
+            }
+        }
+
+        function getNow() {
+            if (useOnlineTime && onlineTime !== null) {
+                onlineTime += 1000;
+                return onlineTime;
+            }
+            return Date.now();
+        }
+
+        function formatCountdown(diff) {
+            if (diff <= 0) return "倒计时结束";
+            const days = Math.floor(diff / 86400);
+            const hours = Math.floor((diff % 86400) / 3600);
+            const minutes = Math.floor((diff % 3600) / 60);
+            const seconds = Math.floor(diff % 60);
+            return `${days}天${hours}小时${minutes}分钟${seconds}秒`;
+        }
+
+        async function startCountdown() {
+            await calibrateTime();
+            setInterval(async () => {
+                tickCount++;
+                if (tickCount % 30 === 0) await calibrateTime();
+                const now = getNow();
+                const diff = Math.floor((examTime - now) / 1000);
+                const text = formatCountdown(diff);
+                if (diff > 0) {
+                    countdownEl.textContent = text;
+                } else {
+                    countdownTextEl.textContent = text;
+                }
+            }, 1000);
+        }
+
+        startCountdown();
+    </script>
 </body>
 </html>
