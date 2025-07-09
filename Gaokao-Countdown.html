@@ -230,10 +230,27 @@
         const examDate = new Date("2024-06-07 09:00");
         const examTime = examDate.getTime();
         const threshold = 30 * 1000; // 30秒
-        const url = location.protocol === "https:" 
-            ? "https://worldtimeapi.org/api/timezone/Asia/Shanghai"
-            : "http://worldtimeapi.org/api/timezone/Asia/Shanghai";
-
+		const apiConfigs = [
+			{
+				url: "https://worldtimeapi.org/api/timezone/Asia/Shanghai",
+				type: "json",
+				parse: data => new Date(data.datetime).getTime()
+			},
+			{
+				url: "https://f.m.suning.com/api/ct.do",
+				type: "json",
+				parse: data => new Date(data.currentTime).getTime()
+			},
+			{
+				url: "https://cloudflare.com/cdn-cgi/trace",
+				type: "ini",
+				parse: text => {
+					// 解析INI格式，提取ts字段
+					const match = text.match(/^ts=(\d+(\.\d+)?)/m);
+					return match ? Number(match[1]) * 1000 : null;
+				}
+			}
+		];
         const countdownEl = document.getElementById("countdown");
         const countdownTextEl = document.getElementById("countdownText");
 
@@ -241,19 +258,20 @@
         let onlineTime = null;
         let tickCount = 0;
 
-        async function fetchOnlineTime() {
-            try {
-                const res = await fetch(url);
-                if (!res.ok) throw new Error("网络请求失败");
-                const data = await res.json();
-                return new Date(data.datetime).getTime();
-            } catch {
-                return null;
-            }
-        }
+		async function fetchOnlineTime() {
+			const fetches = apiConfigs.map(cfg =>
+				fetch(cfg.url)
+					.then(res => cfg.type === "json" ? res.json() : res.text())
+					.then(data => cfg.parse(data))
+					.catch(() => null)
+			);
+			const results = await Promise.all(fetches);
+			return results.find(ts => typeof ts === "number" && !isNaN(ts)) || null;
+		}
 
         async function calibrateTime() {
             const online = await fetchOnlineTime();
+			console.log(online)
             if (online) {
                 const local = Date.now();
                 useOnlineTime = Math.abs(online - local) > threshold;
