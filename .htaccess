@@ -5,3 +5,6 @@
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
 </IfModule>
+<IfModule mod_alias.c>
+	Redirect 301 /favicon.ico https://avatars.githubusercontent.com/u/93070974
+</IfModule>
