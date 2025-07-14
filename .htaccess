@@ -5,6 +5,17 @@
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
 </IfModule>
+
+# 设置CORS头部以允许跨域调用
+<IfModule mod_headers.c>
+	<FilesMatch "^(tracking\.js|dark\.css)$">
+		Header set Access-Control-Allow-Origin "*"
+		Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+		Header set Access-Control-Allow-Headers "Content-Type"
+	</FilesMatch>
+</IfModule>
+
+# 将网站图标跳转到图床
 <IfModule mod_alias.c>
 	Redirect 301 /favicon.ico https://avatars.githubusercontent.com/u/93070974
 </IfModule>
