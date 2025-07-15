@@ -5,7 +5,7 @@
 		ExpiresActive On
 		ExpiresDefault "access plus 30 days"
 	</FilesMatch>
-	
+
 	# 其他文件保持短期缓存
 	<FilesMatch "\.(html|md)$">
 		ExpiresActive On
