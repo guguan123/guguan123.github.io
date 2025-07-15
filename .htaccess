@@ -1,6 +1,6 @@
 # 设置Expires头
 <IfModule mod_expires.c>
-	<FilesMatch "\.(html|css|md|pub|txt)$">
+	<FilesMatch "\.(html|js|css|md|pub|asc)$">
 		ExpiresActive On
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
@@ -8,7 +8,7 @@
 
 # 设置CORS头部以允许跨域调用
 <IfModule mod_headers.c>
-	<FilesMatch "^(tracking\.js|dark\.css)$">
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa.pub|guguan123_0x41860BEB_public.asc)$">
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
 		Header set Access-Control-Allow-Headers "Content-Type"
