@@ -1,28 +1,27 @@
 # 设置Expires头
 <IfModule mod_expires.c>
+	ExpiresActive On
 	# 静态资源文件设置长期缓存
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|guguan123_0x41860BEB_public\.asc)$">
-		ExpiresActive On
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|google028d8e7da5110e2c\.html)$">
 		ExpiresDefault "access plus 30 days"
 	</FilesMatch>
 
 	# 其他文件保持短期缓存
-	<FilesMatch "\.(html|md)$">
-		ExpiresActive On
+	<FilesMatch "^(index\.html|about\.html|friend-links\.html|README\.md|robots\.txt|sitemap\.xml)$">
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
 </IfModule>
 
 # 设置CORS头部以允许跨域调用
 <IfModule mod_headers.c>
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|guguan123_0x41860BEB_public\.asc)$">
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub)$">
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
 </IfModule>
 
-# 将网站图标跳转到图床
+# 将网站图标跳转到GitHub头像
 <IfModule mod_alias.c>
 	Redirect 301 /favicon.ico https://avatars.githubusercontent.com/u/93070974
 </IfModule>
