@@ -2,7 +2,7 @@
 <IfModule mod_expires.c>
 	ExpiresActive On
 	# 静态资源文件设置长期缓存
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|google028d8e7da5110e2c\.html)$">
+	<FilesMatch "^(favicon\.ico|tracking\.js|dark\.css|id_rsa\.pub|google028d8e7da5110e2c\.html)$">
 		ExpiresDefault "access plus 30 days"
 	</FilesMatch>
 
