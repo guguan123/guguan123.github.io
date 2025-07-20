@@ -14,7 +14,7 @@
 
 # 设置CORS头部以允许跨域调用
 <IfModule mod_headers.c>
-	Header always set Strict-Transport-Security "max-age=31536000"
+	Header set Strict-Transport-Security "max-age=31536000"
 	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub)$">
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
