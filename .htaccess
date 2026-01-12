@@ -17,7 +17,7 @@
 	Header set Strict-Transport-Security "max-age=31536000"
 	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub)$">
 		Header set Access-Control-Allow-Origin "*"
-		Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+		Header set Access-Control-Allow-Methods "GET, OPTIONS"
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
 </IfModule>
