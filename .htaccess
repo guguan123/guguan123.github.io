@@ -26,3 +26,9 @@
 <IfModule mod_alias.c>
 	Redirect 301 /favicon.ico https://avatars.githubusercontent.com/u/93070974
 </IfModule>
+
+# 为SSH公钥文件设置正确的MIME type
+<Files "id_rsa.pub">
+	ForceType text/x-ssh-public-key
+</Files>
+
