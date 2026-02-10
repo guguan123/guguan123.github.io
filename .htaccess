@@ -31,4 +31,3 @@
 <Files "id_rsa.pub">
 	ForceType text/x-ssh-public-key
 </Files>
-
