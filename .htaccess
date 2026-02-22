@@ -13,7 +13,7 @@
 
 	<Files "health.txt">
 		ExpiresDefault "access plus 1 seconds"
-	</FilesMatch>
+	</Files>
 </IfModule>
 
 <IfModule mod_headers.c>
