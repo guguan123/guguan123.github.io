@@ -12,7 +12,7 @@
 	</FilesMatch>
 
 	<Files "health.txt">
-		ExpiresDefault "access plus 1 seconds"
+		ExpiresDefault "access plus 10 seconds"
 	</Files>
 </IfModule>
 
