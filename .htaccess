@@ -11,7 +11,8 @@
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
 
-	<Files "health.txt">
+	<Files "health">
+		ForceType text/plain
 		ExpiresDefault "access plus 10 seconds"
 	</Files>
 </IfModule>
