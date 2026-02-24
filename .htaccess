@@ -10,6 +10,11 @@
 	<FilesMatch "^(index\.html|about\.html|friend-links\.html|README\.md|robots\.txt|sitemap\.xml)$">
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
+
+	<Files "health">
+		ForceType text/plain
+		ExpiresDefault "access plus 10 seconds"
+	</Files>
 </IfModule>
 
 <IfModule mod_headers.c>
