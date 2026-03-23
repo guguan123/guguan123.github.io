@@ -20,7 +20,7 @@
 <IfModule mod_headers.c>
 	# 设置 HSTS
 	Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub)$">
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|health)$">
 		# 设置CORS头部以允许跨域调用
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, OPTIONS"
