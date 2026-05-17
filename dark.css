@@ -1,5 +1,10 @@
 /* 用于暗色模式的样式 */
 @media (prefers-color-scheme: dark) {
+	:root {
+		/* 让浏览器自带的滚动条和原生控件自动变暗 */
+		color-scheme: dark;
+	}
+
 	body {
 		background-color: black; /* 黑色背景 */
 		color: rgba(255, 255, 255, 0.87); /* 设置文字透明度 */
@@ -7,29 +12,40 @@
 
 	/* 链接 */
 	a:link {
-		color: #4A90E2; /* 未访问链接 */
+		color: #58a6ff; /* 未访问链接 */
 	}
 	a:visited {
-		color: #7A6FBF; /* 已访问链接 */
+		color: #bc8cff; /* 已访问链接 */
 	}
 	a:hover {
-		color: #66B3FF; /* 悬停时 */
+		color: #79c0ff; /* 悬停时 */
 	}
 	a:active {
-		color: #357ABD; /* 激活时 */
+		color: #388bfd; /* 激活时 */
 	}
 
-	/* 输入框 */
-	input[type="text"] {
-		background-color: #333333;
-		border-color: #555555;
-		color: #E0E0E0;
+	/* 表单输入框 */
+	input[type="text"],
+	input[type="password"],
+	input[type="email"],
+	textarea {
+		background-color: #161b22; /* 稍微带一点点深灰，比纯黑更有层次感 */
+		border-color: #30363d;
+		color: #e6edf3;
 	}
-	input[type="text"]::placeholder {
-		color: #A0A0A0;
+	
+	input::placeholder[type="text"],
+	input::placeholder[type="password"],
+	input::placeholder[type="email"],
+	textarea::placeholder {
+		color: #7d8590;
 	}
-	input[type="text"]:focus {
-		border-color: #4A90E2;
-		box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+	
+	input:focus[type="text"],
+	input:focus[type="password"],
+	input:focus[type="email"],
+	textarea:focus {
+		outline: none;
+		border-color: #58a6ff;
 	}
 }
