@@ -11,7 +11,7 @@
 		ExpiresDefault "access plus 4 hours"
 	</FilesMatch>
 
-	<Files "health">
+	<Files "healthz">
 		ForceType text/plain
 		ExpiresDefault "access plus 10 seconds"
 	</Files>
@@ -20,7 +20,7 @@
 <IfModule mod_headers.c>
 	# 设置 HSTS
 	Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|health)$">
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|healthz)$">
 		# 设置CORS头部以允许跨域调用
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, OPTIONS"
