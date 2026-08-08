@@ -13,7 +13,7 @@
 
 	<Files "healthz">
 		ForceType text/plain
-		ExpiresDefault "access plus 10 seconds"
+		ExpiresDefault "access plus 1 minutes"
 	</Files>
 </IfModule>
 
