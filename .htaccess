@@ -48,5 +48,5 @@
 	RewriteCond %{HTTPS} off
 	# 匹配指定的 User-Agent
 	RewriteCond %{HTTP_USER_AGENT} "(Edg|Firefox|Chrome|Safari)" [NC]
-	RewriteRule ^$ https://guguan.us.kg/%{REQUEST_URI} [R=301,L]
+	RewriteRule ^$ https://guguan.us.kg%{REQUEST_URI} [R=301,L]
 </IfModule>
