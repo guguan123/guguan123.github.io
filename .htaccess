@@ -26,6 +26,9 @@
 		Header set Access-Control-Allow-Methods "GET, OPTIONS"
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
+	<FilesMatch "\.(html|htm)$">
+		Header set Content-Security-Policy "default-src 'self'; img-src *; media-src wapmz.com; script-src *.clarity.ms"
+	</FilesMatch>
 </IfModule>
 
 # 将网站图标跳转到GitHub头像
