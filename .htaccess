@@ -2,7 +2,7 @@
 <IfModule mod_expires.c>
 	ExpiresActive On
 	# 静态资源文件设置长期缓存
-	<FilesMatch "^(favicon\.ico|tracking\.js|dark\.css|id_rsa\.pub|google028d8e7da5110e2c\.html)$">
+	<FilesMatch "^(favicon\.ico|tracking\.js|dark\.css|id_rsa\.pub|google028d8e7da5110e2c\.html|url-obfuscation\.js)$">
 		ExpiresDefault "access plus 30 days"
 	</FilesMatch>
 
@@ -20,13 +20,14 @@
 <IfModule mod_headers.c>
 	# 设置 HSTS
 	Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
-	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|healthz)$">
-		# 设置CORS头部以允许跨域调用
+	<FilesMatch "^(tracking\.js|dark\.css|id_rsa\.pub|healthz|url-obfuscation\.js)$">
+		# 设置 CORS 头部以允许跨域调用
 		Header set Access-Control-Allow-Origin "*"
 		Header set Access-Control-Allow-Methods "GET, OPTIONS"
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
 	<FilesMatch "\.(html|htm)$">
+		# 设置 CSP 响应头
 		Header set Content-Security-Policy "default-src 'self'; img-src avatars.githubusercontent.com wapmz.com; script-src static.cloudflareinsights.com 'sha256-1Ge814fS5TCkqXHP+YWWESI2ySDyG72WXSqvoU6it0k=' *.clarity.ms"
 	</FilesMatch>
 </IfModule>
