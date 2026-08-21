@@ -27,7 +27,7 @@
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
 	<FilesMatch "\.(html|htm)$">
-		Header set Content-Security-Policy "default-src 'self'; img-src wapmz.com; script-src static.cloudflareinsights.com *.clarity.ms"
+		Header set Content-Security-Policy "default-src 'self'; img-src avatars.githubusercontent.com wapmz.com; script-src static.cloudflareinsights.com *.clarity.ms"
 	</FilesMatch>
 </IfModule>
 
