@@ -28,6 +28,14 @@
 		Header set Access-Control-Allow-Headers "Content-Type"
 	</FilesMatch>
 	<FilesMatch "\.(html|htm)$">
+		# 浏览器强制 HTTPS
+		<IfModule mod_rewrite.c>
+			RewriteEngine On
+			# 匹配 User-Agent 中包含 Edg、Firefox、Chrome 或 Safari 的请求
+			RewriteCond %{HTTP_USER_AGENT} "(Edg|Firefox|Chrome|Safari)" [NC]
+			# 执行 301 跳转
+			RewriteRule ^(.*)$ https://example.com/target-page [R=301,L]
+		</IfModule>
 		# 设置 CSP 响应头
 		Header set Content-Security-Policy "default-src 'self'; frame-ancestors 'self'; img-src https://avatars.githubusercontent.com/u/93070974 https://wapmz.com/cn/big/50 https://raw.githubusercontent.com/guguan123/CN_DCMS-Social/refs/heads/dev/favicon.ico https://emnasop.cn/4afc87cb-943a-4951-bc79-02833942edb8.png; script-src 'self' static.cloudflareinsights.com 'sha256-1Ge814fS5TCkqXHP+YWWESI2ySDyG72WXSqvoU6it0k=' *.clarity.ms; connect-src 'self' *.clarity.ms; style-src 'self' 'unsafe-inline'"
 	</FilesMatch>
