@@ -28,7 +28,7 @@
 	</FilesMatch>
 	<FilesMatch "\.(html|htm)$">
 		# 设置 CSP 响应头
-		Header set Content-Security-Policy "default-src 'self'; img-src avatars.githubusercontent.com wapmz.com; script-src static.cloudflareinsights.com 'sha256-1Ge814fS5TCkqXHP+YWWESI2ySDyG72WXSqvoU6it0k=' *.clarity.ms"
+		Header set Content-Security-Policy "default-src 'self'; img-src avatars.githubusercontent.com wapmz.com; script-src static.cloudflareinsights.com 'sha256-1Ge814fS5TCkqXHP+YWWESI2ySDyG72WXSqvoU6it0k=' *.clarity.ms; connect-src *.clarity.ms"
 	</FilesMatch>
 </IfModule>
 
